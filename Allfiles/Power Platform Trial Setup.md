@@ -70,7 +70,7 @@ subject to change without notice so the steps listed may not be correct.
 ### Location of files
 
 Files are in GitHub
-<https://github.com/MicrosoftLearning/MB-600-Dynamics-365-Power-Platform-Solution-Architect/tree/master/Allfiles>
+<https://github.com/MicrosoftLearning/PL-600-Power-Platform-Solution-Architect/tree/master/Allfiles>
 
 ### Credentials
 
