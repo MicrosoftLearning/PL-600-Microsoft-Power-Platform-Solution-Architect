@@ -1,4 +1,4 @@
-# MB-600: Dynamics 365 + Power Platform Solution Architect
+# PL-600: Power Platform Solution Architect
 
 NOTE: Please refer to the TenantSetup.md file for the steps to set up your lab.  You will give students credentials to use for their classroom work. It is VERY important that students use this environment you have created and not their own Azure DevOps. As always for classroom work., it is best for students to work in private browser sessions to avoid any potential conflicts they might have with saved credentials. 
 
