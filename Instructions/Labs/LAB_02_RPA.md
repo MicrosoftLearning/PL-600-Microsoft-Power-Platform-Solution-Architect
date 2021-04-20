@@ -1,4 +1,4 @@
-# **Module X: Robotic Program Automation**
+# **Module 15: Robotic Process Automation**
 
 ## **Lab Scenario**
 
