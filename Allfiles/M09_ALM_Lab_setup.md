@@ -36,7 +36,7 @@ You should consider having the delegates perform the same at the beginning of th
 11. dir
 12. Verify that the Setup.ps1 and ContosoDeviceOrderManagement_1_0_0_1.zip files are in the location.
 
-![Downloaded files.](../media/setup-files.png)
+![Downloaded files.](../Instructions/media/setup-files.png)
 
 ## PowerShell setup script
 
@@ -49,7 +49,7 @@ You should consider having the delegates perform the same at the beginning of th
     a. **Set-ExecutionPolicy RemoteSigned**
     b. **Set-PSRepository -Name PSGallery -InstallationPolicy Trusted**
 
-![Setting execution policy.](../media/execution-policy.png)
+![Setting execution policy.](../Instructions/media/execution-policy.png)
 
 > [!NOTE]
 > If prompted answer with A [Yes to All]
@@ -73,7 +73,7 @@ You should consider having the delegates perform the same at the beginning of th
 > [!NOTE]
 > If prompted answer with A [Yes to All]
 
-![Setup script output.](../media/setup-script-output.png)
+![Setup script output.](../Instructions/media/setup-script-output.png)
 
 6.  Run the following command:
 
@@ -110,7 +110,7 @@ You should consider having the delegates perform the same at the beginning of th
 1.  Navigate to the Power Platform Admin Center <https://admin.microsoft.com/AdminPortal/Home>
 2.  Verify that there is an environment for each student
 
-![Environments for ALM.](../media/alm-environments.png)
+![Environments for ALM.](../Instructions/media/alm-environments.png)
 
 > [!NOTE]
 > Capacity limits on the tenant may prevent all the environments from being created. If this happens you need to add a Power Apps trial to the tenant and students will have to to create a trial environment themselves in the lab.
@@ -153,7 +153,7 @@ You should consider having the delegates perform the same at the beginning of th
 2.  Select **Environments**
 3.  Click on **+ New**
 
-![New environment pane.](../media/new-environment-step-1.png)
+![New environment pane.](../Instructions/media/new-environment-step-1.png)
 
 4.  In the New environment pane, enter the following details and click **Next**
 
@@ -173,7 +173,7 @@ You should consider having the delegates perform the same at the beginning of th
 
 3.  Click on **Solutions** and verify the Contoso Device Order Management solution has been imported
 
-![List of solutions.](../media/development-solution.png)
+![List of solutions.](../Instructions/media/development-solution.png)
 
 4.  Click on **Apps** and verify the Device Ordering App and the Device Procurement apps have been imported
 
@@ -248,7 +248,7 @@ You should consider having the delegates perform the same at the beginning of th
 5. Select **Security Roles**
 6. Select the **System Customizer** role
 
-![Add users to role.](../media/add-role.png)
+![Add users to role.](../Instructions/media/add-role.png)
 
 7. If using an ALH lab, click **+ Add people**, search and add the following users:
 
