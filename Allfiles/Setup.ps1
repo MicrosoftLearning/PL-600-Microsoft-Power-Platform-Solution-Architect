@@ -1,28 +1,23 @@
-﻿
+﻿#
 #
+#  Run  Start-PL600-Setup 
 #
-#  Run  Start-MB600-Setup 
-#
-#  V1.0 - 2/21/2020 - inital version
-#  V1.1 - 3/03/2020 - Correct import of development solution
-
+#  V1.0 - 4/20/2020 - inital version
 #
 ####
 
    $LabAdminPrefix = "labadmin";
-
-
    $LabAdminPassword = "test@word1"
 
    #For E3 use ENTERPRISEPACK
    #For E5 use ENTERPRISEPREMIUM
    $LabADminOfficeLicense=""
-
-   $LabAdminPowerLicense="POWERAPPS_PER_USER"
-   
+   #$LabAdminPowerLicense="POWERAPPS_PER_USER"
+   $LabAdminPowerLicense="DYN365_ENTERPRISE_PLAN1"
+   $ALH=$true
 
 ####
-#   End of the configuraiton section
+#   End of the configuration section
 ####
 
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -35,32 +30,30 @@ Install-Module -Name MSOnline -Scope CurrentUser -RequiredVersion 1.1.166.0
 Install-module azuread -Scope CurrentUser
 Import-Module Microsoft.PowerShell.Utility 
 
-Write-Host "### Prepare to run Start-MB600-Setup ###" 
+Write-Host "### Prepare to run Start-PL600-Setup ###" 
 Write-Host ""
-Write-Host "  Start-MB600-Setup -TenantName 'MX60265ABC'  -CDSLocation 'unitedstates' -UserCount 10"-ForegroundColor Green     
-Write-Host "  Parameters details for Start-MB600-Setup:"
+Write-Host "  Start-PL600-Setup -TenantName 'WWLLABXXX' -CDSLocation 'unitedstates' -UserCount 24" -ForegroundColor Green     
+Write-Host "  Parameters details for Start-PL600-Setup:"
 Write-Host "     TenantName : This is the name portion of name.onmicrosoft.com" -ForegroundColor Green  
 Write-Host "     CDSLocation: This must match be appropriate for Region e.g. US = unitedstates"  -ForegroundColor Green
 Write-Host "     UserCount: This is a number between 1 and 75 that is attending your event"  -ForegroundColor Green
 Write-Host "     APIUrl : You can find the url for your tenant region here if not in US - https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/online-management-api/get-started-online-management-api"  -ForegroundColor Green
 Write-Host "     You can find out your tenant region by running running Get-MsolCompanyInformation and looking at CountryLetterCode" -ForegroundColor Green
 Write-Host ""
-Write-Host "### Ready for you to run Start-MB600-Setup ###" 
+Write-Host "### Ready for you to run Start-PL600-Setup ###" 
 
-
-
-function Start-MB600-Setup
+function Start-PL600-Setup
 {
     <#
     .SYNOPSIS 
-      Configure a tenant for running an MB-600 ALM lab
+      Configure a tenant for running an ALM lab
     .EXAMPLE
-     Start-MB600-Setup -TenantName 'MX60265ABC'  -CDSLocation 'unitedstates' -UserCount 10 
+     Start-PL600-Setup -TenantName 'MX60265ABC'  -CDSLocation 'unitedstates' -UserCount 10 
      
      TenantName : This is the name portion of name.onmicrosoft.com     
      CDSLocation: This must match be appropriate for Region e.g. US = unitedstates
      UserCount: This is a number between 1 and the max you have licenses for
-     Solution : This allows you to specify a CDS Solution that will be pre-loaded into each student environment
+     Solution : This allows you to specify a Dataverse Solution that will be pre-loaded into each student environment
      EnvSKU: This can be either Trial or Production, default is Trial
      APIUrl : You can find the url for your region here if not in US - https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/online-management-api/get-started-online-management-api
      APIUrl : The APIUrl is not required as derived from CDSLocation
@@ -72,7 +65,7 @@ function Start-MB600-Setup
     [Parameter(Mandatory = $false)]
     [string]$CDSlocation="unitedstates",
     [Parameter(Mandatory = $true)]
-    [int]$UserCount=1,
+    [int]$UserCount=24,
     [Parameter(Mandatory = $false)]
     [string]$APIUrl = "https://admin.services.crm.dynamics.com",
     [Parameter(Mandatory = $false)]
@@ -85,23 +78,19 @@ function Start-MB600-Setup
 
     Write-Host "Setup Starting"
 
-
     Write-Host "Tenant:" $TenantName
     $Tenant = $TenantName;
     Write-Host "Region:" $Region
-    $TenantRegioin = $Region;
+    $TenantRegion = $Region;
     Write-Host "API Url:" $APIUrl
     $AdminAPIUrl = Get-AdminServiceUrl -CDSlocation $CDSlocation  -APIUrl $APIUrl
-    Write-Host "CDS Location:" $CDSlocation
+    Write-Host "Dataverse Location:" $CDSlocation
     Write-Host "User Count:" $UserCount
     Write-Host "Solution:" $Solution
-    $LabAdminCount = $UserCount
-    
-
+    $LabAdminCount = $UserCount  
     $DomainName =$Tenant + ".onmicrosoft.com"
 
     $UserCredential = Get-Credential
-
     Write-Host "Connecting to Office 365..."
     Connect-MsolService -Credential $UserCredential
     Write-Host "Connecting to Azure AD..."
@@ -116,9 +105,6 @@ function Start-MB600-Setup
        exit
     }
     
-
-    
-
     if ($DeleteUsers -eq $true) {
         $confirmDelete = Read-Host -Prompt 'Confirm disabling all accounts other than this admin account(Y/N)'
         if ($confirmDelete -and $confirmDelete -eq 'Y') {
@@ -128,36 +114,54 @@ function Start-MB600-Setup
     }
         
     $companyInfo = Get-MsolCompanyInformation   
-
+    Write-Host "Verifying licenses..."
     $verifyLicense = Verify-Licenses -Tenant $Tenant -UserCount $LabAdminCount
-    
     if ($verifyLicense -eq $true)
     {     
-
+        Write-Host "Setting up development environment..."
         Setup-ContosoEnvs
-
-        Setup-DeviceOrderingSolution
         
-        Create-LabAdminUsers -Tenant $Tenant -Count $LabAdminCount -TenantRegion $companyInfo.CountryLetterCode -password $LabAdminPassword -userprefix $LabAdminPrefix    
-
-        Setup-AddLabAdminToGroup
-
-        Setup-AddLabAdminToSysAdmin-FixedEnvs
-
-        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
-
-        Create-CDSenvironment -namePrefix "Prod - " -CDSlocation $CDSlocation -password $LabAdminPassword -EnvSKU $EnvSKU        
-
-        Wait-ForEnvProvisioning -namePrefix "Prod - " -envCount $UserCount
-
-        Create-CDSDatabases -namePrefix "Prod - "
-
-        if ($EnvSKU -ne "Trial")
+        $verifySolution=Verify-SolutionFile-ToEnv -namePrefix "Device Ordering Development" -uniquename ContosoDeviceOrderManagement
+        if ($verifySolution -eq $false)
         {
-            Setup-AddLabAdminToSysAdmin-StudentEnvs -namePrefix "Prod - "     
+            Write-Host "Importing solution..."
+            Setup-DeviceOrderingSolution
         }
 
-        Install-SolutionFile-ToEnv -nameprefix "Prod - " -solution $Solution -APIUrl $AdminAPIUrl
+        if ($ALH -eq $true)
+        {
+            Write-Host "Set for ALH..."
+            $EnvSKU="Production"
+            Write-Host "Finding users..."
+            List-Users
+            Write-Host "Adding roles to users..."
+            Setup-AddLabAdminRoles
+        }
+        else
+        {
+            Write-Host "Set for Trial..."
+            Write-Host "Creating users..."
+            Create-LabAdminUsers -Tenant $Tenant -Count $LabAdminCount -TenantRegion $companyInfo.CountryLetterCode -password $LabAdminPassword -userprefix $LabAdminPrefix
+        }
+                
+        Setup-AddLabAdminToGroup
+        Setup-AddLabAdminToSysAdmin-FixedEnvs
+        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+        
+        Create-CDSenvironment -namePrefix "Prod - " -CDSlocation $CDSlocation -password $LabAdminPassword -EnvSKU $EnvSKU
+        Wait-ForEnvProvisioning -namePrefix "Prod - " -envCount $UserCount
+        Create-CDSDatabases -namePrefix "Prod - "
+        
+        if ($EnvSKU -ne "Trial")
+        {
+            Write-Host "Setting users as System Administrators on environments..."
+            Setup-AddLabAdminToSysAdmin-StudentEnvs -namePrefix "Prod - "     
+        }
+        if ($solution -ne "" -and $solution -ne $null)
+        {
+            Write-Host "Installing solution file"
+            Install-SolutionFile-ToEnv -nameprefix "Prod - " -solution $Solution -APIUrl $AdminAPIUrl
+        }
      }
      else
      {
@@ -165,8 +169,7 @@ function Start-MB600-Setup
         Get-MsolAccountSku | Format-Table -Property AccountSkuID
         Write-Host "Fix your licenses and then restart"
      }
-        
-
+ 
     Write-Host "Setup Ending"
 }
 
@@ -187,7 +190,6 @@ class NewEnvInfo {
     }
 }
 
-
 function Setup-ContosoEnvs{
 
     $newEnvList =@([NewEnvInfo]::new("Device Ordering Development",$CDSlocation,"Trial"))
@@ -197,152 +199,101 @@ function Setup-ContosoEnvs{
     ForEach ($newEnv in $newEnvList) { 
 
         $envQuery = $newEnv.displayname + "*"
-
         $envDevList = @(Get-AdminPowerAppEnvironment | where { $_.DisplayName -like $envQuery })         
         
         if ($envDevList.count -eq 0 ) { 
-
             Write-Host "Creating environment " $newEnv.displayname
-
             $devEnv = New-AdminPowerAppEnvironment -DisplayName  $newEnv.displayname -LocationName $newEnv.location -EnvironmentSku $newEnv.sku 
-
-            Write-Host "Creating CDS " $newEnv.displayname
-
-            New-AdminPowerAppCdsDatabase -EnvironmentName  $devEnv.EnvironmentName -CurrencyName USD -LanguageName 1033  -ErrorAction Continue -WaitUntilFinished $true
-
+            Write-Host "Creating Dataverse:" $newEnv.displayname
+            New-AdminPowerAppCdsDatabase -EnvironmentName  $devEnv.EnvironmentName -CurrencyName USD -LanguageName 1033 -ErrorAction Continue -WaitUntilFinished $true
             Wait-ForCDSProvisioning -namePrefix $newEnv.displayname
-
         }
         else {
-
             Write-Host "Environment " $newEnv.displayname " already exists - skipping"
-
         }
     }
-
-
 }
 
 function Setup-DeviceOrderingSolution{
 
-
     Write-Host "Starting import of device admin solution"
-
     $adminGroup = Get-azureADGroup | where {$_.DisplayName -eq "Lab Admin Team"} | Select-Object -first 1
-
     $role = 'System Administrator'
-
     $cdsInstances = Get-CrmInstances -ApiUrl $AdminAPIUrl -Credential $UserCredential 
-
-
     $envlist=$cdsInstances.Where({$_.EnvironmentType  -ne 'Default'}).Where({$_.FriendlyName -like  '*Device Ordering Development*' })
-
     Write-Host "Found " $envlist.length " environments to process"
-
-    ForEach ($environemnt in $envlist) { 
-     
-        Write-Host "Processing environment :" $environemnt.FriendlyName
-
-
-        $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environemnt.ApplicationUrl
+    ForEach ($environment in $envlist) { 
+        Write-Host "Processing environment :" $environment.FriendlyName
+        $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environment.ApplicationUrl -ForceOAuth
         $conn.IsReady,$conn.ConnectedOrgFriendlyName
-    
-        $solutionPath = ".\ContosoDeviceOrderManagement_1_0_0_1.zip"
-        
+        $currentLocation=Get-Location
+        $solutionPath = $currentLocation.Path + "\ContosoDeviceOrderManagement_1_0_0_1.zip"
         if ($PSScriptRoot -ne "" -and $PSScriptRoot -ne $null)
         {
            $solutionPath = $PSScriptRoot + "\ContosoDeviceOrderManagement_1_0_0_1.zip"
         }
-
         Write-Host "Importing " $solutionPath
-
-        Import-CrmSolution -conn $conn -SolutionFilePath $solutionPath -Verbose
-    
+        Import-CrmSolution -conn $conn -SolutionFilePath $solutionPath -Verbose   
      }   
 
      Write-Host "Giving Can Edit permission to labadmins"
 
      $devEnv = Get-AdminPowerAppEnvironment | where {$_.DisplayName -like 'Device Ordering Development*'}       
-
      $devApp = get-adminpowerapp -EnvironmentName  $devEnv.EnvironmentName -Filter 'Device Ordering App'
-        
      Set-AdminPowerAppRoleAssignment -PrincipalType Group -PrincipalObjectId $adminGroup.ObjectId -RoleName CanViewWithShare -AppName $devApp.AppName -EnvironmentName $devEnv.EnvironmentName
-   
      Write-Host "Ending import of device admin solution"
 }
 
 function Setup-AddLabAdminToSysAdmin-FixedEnvs{
 
     $userprefix ='labadmin*'
-
+    $userQuery = '*.onmicrosoft.com'
     Write-Host "Starting to add lab admin to dev environment as sysadmin"
-
     $role = 'System Administrator'
-
     $cdsInstances = Get-CrmInstances -ApiUrl $AdminAPIUrl -Credential $UserCredential 
-
-
     $envlist=$cdsInstances.Where({ $_.FriendlyName -like '*Device Ordering Development*'  })
-
     Write-Host "Found " $envlist.length " environments to process"
-
-        ForEach ($environemnt in $envlist) { 
-     
-         Write-Host "Processing environment :" $environemnt.FriendlyName
-
-
-         $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environemnt.ApplicationUrl
-         $conn.IsReady,$conn.ConnectedOrgFriendlyName
-    
-   
+    ForEach ($environment in $envlist) { 
+        Write-Host "Processing environment :" $environment.FriendlyName
+        $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environment.ApplicationUrl -ForceOAuth
+        $conn.IsReady,$conn.ConnectedOrgFriendlyName
         $users = Get-CrmRecords `
                -EntityLogicalName systemuser `
                -Fields domainname,systemuserid, fullname `
                -conn $conn
-
-     $users = $users.CrmRecords | where {$_.domainname -like $userprefix} | Sort-Object domainname
-
-
+#       $users = $users.CrmRecords | where {$_.domainname -like $userprefix} | Sort-Object domainname
+        $users = $users.CrmRecords | where {$_.UserPrincipalName -like $userQuery} | Sort-Object domainname
         ForEach ($user in $users) { 
-
             write-host "adding user "  $user.fullname  " to group sysadmin"
-
-                try
+            try
             {
                 Add-CrmSecurityRoleToUser `
                    -UserId $user.systemuserid `
                    -SecurityRoleName $role `
                    -conn $conn
- 
-             }
+            }
             Catch
             {
                 $ErrorMessage = $_.Exception.Message        
                 write-output $ErrorMessage
-        
             }
-   
-
-        
-            }
-
-    
-        }   
-        Write-Host "Ending add lab admin to dev environment as sysadmin"
+        }
+    }   
+    Write-Host "Ending add lab admin to dev environment as sysadmin"
 }
 
-function Reset-MB600
+function Reset-PL600
 {
    <#
     .SYNOPSIS 
       This will delete all existing student environments and then create new ones
     .EXAMPLE
-     Reset-MB600 -TenantName 'MX60265ABC'  -CDSLocation 'unitedstates'  'https://admin.services.crm.dynamics.com'
+     Reset-PL600 -TenantName 'MX60265ABC'  -CDSLocation 'unitedstates'  'https://admin.services.crm.dynamics.com'
      
      TenantName : This is the name portion of name.onmicrosoft.com     
      CDSLocation: This must match be appropriate for Region e.g. US = unitedstates     
      APIUrl : You can find the url for your region here if not in US - https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/online-management-api/get-started-online-management-api
-     Solution : This allows you to specify a CDS Solution that will be pre-loaded into each student environment
+     Solution : This allows you to specify a Dataverse Solution that will be pre-loaded into each student environment
      EnvSKU: This can be either Trial or Production, default is Trial     
     #>
 param(
@@ -359,19 +310,15 @@ param(
     )
 
     Write-Host "Reset Starting"
-
-
     Write-Host "Tenant:" $TenantName
     $Tenant = $TenantName;
     Write-Host "Region:" $Region
-    $TenantRegioin = $Region;
+    $TenantRegion = $Region;
     Write-Host "API Url:" $APIUrl
     $AdminAPIUrl = Get-AdminServiceUrl -CDSlocation $CDSlocation  -APIUrl $APIUrl
-    Write-Host "CDS Location:" $CDSlocation
-
-    
+    Write-Host "Dataverse Location:" $CDSlocation
+   
     $DomainName =$Tenant + ".onmicrosoft.com"
-
     $UserCredential = Get-Credential
 
     Write-Host "Connecting to Office 365..."
@@ -380,7 +327,7 @@ param(
     Connect-AzureAD -Credential $UserCredential
     Write-Host "Connecting to PowerApps..."
     try{
-    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
     }
     catch { 
        Write-Host "Error connecting to PowerApps, if error includes Cannot find overload for UserCredential please run CleanupOldModules.ps1 and retry this script"
@@ -388,41 +335,32 @@ param(
        exit
     }
     
-        
-        $companyInfo = Get-MsolCompanyInformation        
-                            
+    $companyInfo = Get-MsolCompanyInformation        
+    
+    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    Delete-CDSenvironment -namePrefix "Prod - "
+    Wait-ForCDSDeleting -namePrefix "Prod - "
+    Create-CDSenvironment -namePrefix "Prod - " -CDSlocation $CDSlocation -password $LabAdminPassword -EnvSKU $EnvSKU
+    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    Create-CDSDatabases -namePrefix "Prod - "
 
-        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    if ($EnvSKU -ne "Trial")
+    {
+        Setup-AddLabAdminToSysAdmin-StudentEnvs -namePrefix "Prod - "     
+    }
 
-        Delete-CDSenvironment -namePrefix "Prod - "
-
-        Wait-ForCDSDeleting -namePrefix "Prod - "
-        
-        Create-CDSenvironment -namePrefix "Prod - " -CDSlocation $CDSlocation -password $LabAdminPassword -EnvSKU $EnvSKU
-
-        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
-        
-        Create-CDSDatabases -namePrefix "Prod - "
-
-        
-        if ($EnvSKU -ne "Trial")
-        {
-            Setup-AddLabAdminToSysAdmin-StudentEnvs -namePrefix "Prod - "     
-        }
-
-        Install-SolutionFile-ToEnv -nameprefix "Prod - " -solution $Solution -APIUrl $AdminAPIUrl
-          
+    Install-SolutionFile-ToEnv -nameprefix "Prod - " -solution $Solution -APIUrl $AdminAPIUrl     
 
     Write-Host "Setup Ending"
 }
 
-function Cleanup-MB600
+function Cleanup-PL600
 {
   <#
     .SYNOPSIS 
       This will delete all existing student environments 
     .EXAMPLE
-     Cleanup-MB600 -TenantName 'MX60265ABC'   'https://admin.services.crm.dynamics.com'
+     Cleanup-PL600 -TenantName 'MX60265ABC'   'https://admin.services.crm.dynamics.com'
      
      TenantName : This is the name portion of name.onmicrosoft.com     
      APIUrl : You can find the url for your region here if not in US - https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/online-management-api/get-started-online-management-api
@@ -436,18 +374,15 @@ param(
 
     Write-Host "cleanup Starting"
 
-
     Write-Host "Tenant:" $TenantName
     $Tenant = $TenantName;
     Write-Host "Region:" $Region
-    $TenantRegioin = $Region;
+    $TenantRegion = $Region;
     Write-Host "API Url:" $APIUrl
     $AdminAPIUrl = Get-AdminServiceUrl -CDSlocation $CDSlocation  -APIUrl $APIUrl
-    Write-Host "CDS Location:" $CDSlocation
+    Write-Host "Dataverse Location:" $CDSlocation
 
-    
     $DomainName =$Tenant + ".onmicrosoft.com"
-
     $UserCredential = Get-Credential
 
     Write-Host "Connecting to Office 365..."
@@ -456,40 +391,36 @@ param(
     Connect-AzureAD -Credential $UserCredential
     Write-Host "Connecting to PowerApps..."
     try{
-    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
     }
     catch { 
        Write-Host "Error connecting to PowerApps, if error includes Cannot find overload for UserCredential please run CleanupOldModules.ps1 and retry this script"
        Read-Host -Prompt 'Press <Enter> to exit, then restart script with proper information'
        exit
     }
-    
-        
-        $companyInfo = Get-MsolCompanyInformation                                    
 
-        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    $companyInfo = Get-MsolCompanyInformation                                    
 
-        Delete-CDSenvironment -namePrefix "Prod - "
-                
-        Wait-ForCDSDeleting -namePrefix "Prod - "
+    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    Delete-CDSenvironment -namePrefix "Prod - "
+    Wait-ForCDSDeleting -namePrefix "Prod - "
 
     Write-Host "Cleanup Ending"
 }
 
 
-
-function Resume-MB600-CDSProvisioning
+function Resume-PL600-CDSProvisioning
 {
   <#
     .SYNOPSIS 
       This will resume provisioning student environments in case the inital script has to be restarted
     .EXAMPLE
-     Resume-MB600-CDSProvisioning -TenantName 'MX60265ABC'  -CDSLocation 'unitedstates'  'https://admin.services.crm.dynamics.com'
+     Resume-PL600-CDSProvisioning -TenantName 'MX60265ABC'  -CDSLocation 'unitedstates'  'https://admin.services.crm.dynamics.com'
      
      TenantName : This is the name portion of name.onmicrosoft.com     
      CDSLocation: This must match be appropriate for Region e.g. US = unitedstates     
      APIUrl : You can find the url for your region here if not in US - https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/online-management-api/get-started-online-management-api
-     Solution : This allows you to specify a CDS Solution that will be pre-loaded into each student environment
+     Solution : This allows you to specify a Dataverse Solution that will be pre-loaded into each student environment
      EnvSKU: This can be either Trial or Production, default is Trial     
     #>
 param(
@@ -509,14 +440,13 @@ param(
     Write-Host "Tenant:" $TenantName
     $Tenant = $TenantName;
     Write-Host "Region:" $Region
-    $TenantRegioin = $Region;
+    $TenantRegion = $Region;
     Write-Host "API Url:" $APIUrl
     $AdminAPIUrl = Get-AdminServiceUrl -CDSlocation $CDSlocation  -APIUrl $APIUrl
     Write-Host "Admin Url:" $AdminAPIUrl
-    Write-Host "CDS Location:" $CDSlocation
+    Write-Host "Dataverse Location:" $CDSlocation
 
     $DomainName =$Tenant + ".onmicrosoft.com"
-
     $UserCredential = Get-Credential
 
     Write-Host "Connecting to Office 365..."
@@ -525,32 +455,27 @@ param(
     Connect-AzureAD -Credential $UserCredential
     Write-Host "Connecting to PowerApps..."
     try{
-    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
     }
     catch { 
        Write-Host "Error connecting to PowerApps, if error includes Cannot find overload for UserCredential please run CleanupOldModules.ps1 and retry this script"
        Read-Host -Prompt 'Press <Enter> to exit, then restart script with proper information'
        exit
     }
-    
-        
-        $companyInfo = Get-MsolCompanyInformation                                    
+            
+    $companyInfo = Get-MsolCompanyInformation                                    
 
-        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    Create-CDSenvironment -namePrefix "Prod - " -CDSlocation $CDSlocation -password $LabAdminPassword -EnvSKU $EnvSKU
+    Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
+    Create-CDSDatabases -namePrefix "Prod - "
 
-        Create-CDSenvironment -namePrefix "Prod - " -CDSlocation $CDSlocation -password $LabAdminPassword -EnvSKU $EnvSKU
+   if ($EnvSKU -ne "Trial")
+   {
+       Setup-AddLabAdminToSysAdmin-StudentEnvs -namePrefix "Prod - "     
+    }
 
-        Add-PowerAppsAccount -Username $UserCredential.UserName -Password $UserCredential.Password
-        
-        Create-CDSDatabases -namePrefix "Prod - "
-
-         if ($EnvSKU -ne "Trial")
-        {
-            Setup-AddLabAdminToSysAdmin-StudentEnvs -namePrefix "Prod - "     
-        }
-
-        Install-SolutionFile-ToEnv -nameprefix "Prod - " -solution $Solution -APIUrl $AdminAPIUrl
-         
+    Install-SolutionFile-ToEnv -nameprefix "Prod - " -solution $Solution -APIUrl $AdminAPIUrl
 
     Write-Host "Setup Ending"
 }
@@ -592,14 +517,46 @@ function Delete-DemoUsers {
 
     Write-Host "***Removing Demo Users ****" -ForegroundColor Green
 
-    Get-MsolUser | where {$_.UserPrincipalName -notlike $userCredential.UserName}|Remove-MsolUser -Force
+#    Get-MsolUser | where {$_.UserPrincipalName -notlike $userCredential.UserName}|Remove-MsolUser -Force
+
+    $userQuery = $LabAdminPrefix+'*'
+    Get-MsolUser | where {$_.UserPrincipalName -like $userQuery} | Remove-MsolUser -Force
+
 
     Write-Host "****Old Users Deleted ****" -ForegroundColor Green
     Get-MsolUser |fl displayname,licenses
 
 }
 
+function List-Users
+{
+    $userQuery = '*.onmicrosoft.com'
+    $studentUsers = Get-MsolUser | where {$_.UserPrincipalName -like $userQuery} | where {$_.UserPrincipalName -ne $UserCredential.UserName} | Sort-Object UserPrincipalName
+}
 
+function Setup-AddLabAdminRoles
+{
+    $roleName="Power Platform Administrator"
+    $role = Get-AzureADDirectoryRole | Where {$_.displayName -eq $roleName}
+    if ($role -eq $null) {
+        $roleTemplate = Get-AzureADDirectoryRoleTemplate | Where {$_.displayName -eq $roleName}
+        Enable-AzureADDirectoryRole -RoleTemplateId $roleTemplate.ObjectId
+        $role = Get-AzureADDirectoryRole | Where {$_.displayName -eq $roleName}
+    }
+    $role.Description
+
+    $userQuery = '*.onmicrosoft.com'
+    $studentUsers = Get-MsolUser | where {$_.UserPrincipalName -like $userQuery} | where {$_.UserPrincipalName -ne $UserCredential.UserName} | Sort-Object UserPrincipalName
+    ForEach ($user in $studentUsers)
+    { 
+        try
+        {
+            write-host "adding user " $user.UserPrincipalName " to role" $role.DisplayName
+            Add-AzureADDirectoryRoleMember -ObjectId $role.ObjectId -RefObjectId (Get-AzureADUser | Where {$_.UserPrincipalName -eq $user.UserPrincipalName}).ObjectID
+        }
+        catch {}
+    }
+}
 
 function Create-LabAdminUsers
 {
@@ -613,18 +570,16 @@ function Create-LabAdminUsers
     [string]$TenantRegion="GB",
     [Parameter(Mandatory = $false)]
     [string]$password=$UserPassword,
-     [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $false)]
     [string]$userprefix="labadmin",
     [Parameter(Mandatory = $false)]
     [int]$startCount=1,
-     [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $false)]
     [string]$powerLicense=$LabAdminPowerLicense
     
     )
 
     $DomainName = $Tenant+".onmicrosoft.com"
-
-
     
     Write-Host "Tenant: " $Tenant
     Write-Host "Domain Name: " $DomainName
@@ -634,16 +589,11 @@ function Create-LabAdminUsers
     Write-Host "CDSlocation: " $CDSlocation
     Write-Host "password: " $password
 
-  
     $securepassword = ConvertTo-SecureString -String $password -AsPlainText -Force
     
- 
-       Write-Host "creating users " -ForegroundColor Green
+    Write-Host "creating users " -ForegroundColor Green
    
-       for ($i=$startCount;$i -lt $Count+1; $i++) {
-       
-
-
+    for ($i=$startCount;$i -lt $Count+1; $i++) {
         $firstname = "Lab"
         $lastname = "Admin" + $i
         $displayname = "Lab Admin " + $i
@@ -652,38 +602,28 @@ function Create-LabAdminUsers
 
         if($existingUser -eq $Null)
         {
+             New-MsolUser -DisplayName $displayname -FirstName $firstname -LastName $lastname -UserPrincipalName $email -UsageLocation $TenantRegion -Password $password -LicenseAssignment $Tenant":"$powerLicense -PasswordNeverExpires $true -ForceChangePassword $false  
          
-         New-MsolUser -DisplayName $displayname -FirstName $firstname -LastName $lastname -UserPrincipalName $email -UsageLocation $TenantRegion -Password $password -LicenseAssignment $Tenant":"$powerLicense -PasswordNeverExpires $true -ForceChangePassword $false  
-         
-         if ($LabADminOfficeLicense -ne $null -and $LabADminOfficeLicense -ne "")
-         {
-            Set-MsolUserLicense -UserPrincipalName $email -AddLicenses $Tenant":"$LabADminOfficeLicense
-         }
-         
-            #For E3 Set-MsolUserLicense -UserPrincipalName $email -AddLicenses $Tenant":ENTERPRISEPACK" -Verbose
-            #For E5 Set-MsolUserLicense -UserPrincipalName $email -AddLicenses $Tenant":ENTERPRISEPREMIUM" -Verbose
+             if ($LabADminOfficeLicense -ne $null -and $LabADminOfficeLicense -ne "")
+             {
+                Set-MsolUserLicense -UserPrincipalName $email -AddLicenses $Tenant":"$LabADminOfficeLicense
+                #For E3 Set-MsolUserLicense -UserPrincipalName $email -AddLicenses $Tenant":ENTERPRISEPACK" -Verbose
+                #For E5 Set-MsolUserLicense -UserPrincipalName $email -AddLicenses $Tenant":ENTERPRISEPREMIUM" -Verbose
+            } 
         }
          
-        }
-        Write-Host "*****************Lab Users Created ***************" -ForegroundColor Green
-        $userQuery = $LabAdminPrefix+'*'
-        Get-MsolUser | where {$_.UserPrincipalName -like $userQuery}|fl displayname,licenses
-
+    }
+    Write-Host "*****************Lab Users Created ***************" -ForegroundColor Green
+    $userQuery = $LabAdminPrefix+'*'
+    $studentUsers = Get-MsolUser | where {$_.UserPrincipalName -like $userQuery}
 }
-
-
-
-
-
 
 
 function Setup-AddLabAdminToGroup
 {
-
-    Write-Host "Starting add labadmin users to Lab Admin Team group"
+   Write-Host "Starting add labadmin users to Lab Admin Team group"
 
    $userprefix =$LabAdminPrefix+'*'
-
    $adminGroup = Get-azureADGroup | where {$_.DisplayName -eq "Lab Admin Team"} | Select-Object -first 1
 
    if (!$adminGroup)
@@ -697,31 +637,26 @@ function Setup-AddLabAdminToGroup
    {
         Write-Host "Found existing group " $adminGroup.ObjectId
    }
-   
-   $users = Get-MsolUser | where {$_.UserPrincipalName -like $userprefix} | Sort-Object UserPrincipalName
 
+   $userQuery = '*.onmicrosoft.com'
+   $studentUsers = Get-MsolUser | where {$_.UserPrincipalName -like $userQuery} | where {$_.UserPrincipalName -ne $UserCredential.UserName} | Sort-Object UserPrincipalName
+   $users = $studentUsers | Sort-Object UserPrincipalName
    $existingMembers = Get-AzureADGroupMember -ObjectId $adminGroup.ObjectId | Select -ExpandProperty UserPrincipalName
 
+   ForEach ($user in $users) { 
 
-    ForEach ($user in $users) { 
-
-        if (!$existingMembers -contains $user.UserPrincipalName)
-        {
-
-            write-host "adding user "  $user.UserPrincipalName  " to group "  $adminGroup.DisplayName
-
-            Add-AzureADGroupMember -ObjectId $adminGroup.ObjectId -RefObjectId $user.ObjectId
-        }
-        else
-        {
-            write-host "user "  $user.UserPrincipalName  " is already a member of "  $adminGroup.DisplayName
-        }
-
-        
+       if (!$existingMembers -contains $user.UserPrincipalName)
+       {
+           write-host "adding user "  $user.UserPrincipalName  " to group "  $adminGroup.DisplayName
+           Add-AzureADGroupMember -ObjectId $adminGroup.ObjectId -RefObjectId $user.ObjectId
+       }
+       else
+       {
+           write-host "user "  $user.UserPrincipalName  " is already a member of "  $adminGroup.DisplayName
+       }
     }
     Write-Host "Ending add labadmin users to Lab Admin Team group"
 }
-
 
 
 function Install-SolutionFile-ToEnv
@@ -735,12 +670,10 @@ function Install-SolutionFile-ToEnv
     [string]$APIUrl = "https://admin.services.crm.dynamics.com"   
     )
 
-
     Write-Host "Starting import of starting solution"
     
     if ($solution -ne "" -and $solution -ne $null)
     {
-   
         $cdsInstances = Get-CrmInstances -ApiUrl $APIUrl -Credential $UserCredential 
 
         $envQuery = '*'+$namePrefix+'*'
@@ -748,61 +681,49 @@ function Install-SolutionFile-ToEnv
 
         Write-Host "Found " $envlist.Count " environments to process"
 
-        ForEach ($environemnt in $envlist) { 
-     
-             Write-Host "Processing environment :" $environemnt.FriendlyName
+        ForEach ($environment in $envlist) { 
+           Write-Host "Processing environment :" $environment.FriendlyName
 
+           $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environment.ApplicationUrl -ForceOAuth
+           $solutionPath = $PSScriptRoot + "\" + $solution
 
-             $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environemnt.ApplicationUrl
-             
-    
-            $solutionPath = $PSScriptRoot + "\" + $solution
+           Write-Host "Importing " $solutionPath
 
-            Write-Host "Importing " $solutionPath
-
-            try{
-
+           try{
                 Import-CrmSolution -conn $conn -SolutionFilePath $solutionPath -PublishChanges $true
-            }
-            Catch
-            {
-                $ErrorMessage = $_.Exception.Message        
-                if ($ErrorMessage -like '*timeout*' -or $ErrorMessage -like '*Underlying connection was closed*' )
-                { 
+           }
+           Catch
+           {
+               $ErrorMessage = $_.Exception.Message        
+               if ($ErrorMessage -like '*timeout*' -or $ErrorMessage -like '*Underlying connection was closed*' )
+               { 
                     write-host "  retrying import due to timeout after short delay"
                     Start-Sleep -s 30
                     Import-CrmSolution -conn $conn -SolutionFilePath $solutionPath -Verbose -PublishChanges $true
-                }
-                else
-                {
-                    write-host $ErrorMessage -ForegroundColor Red
-                }
-                
-        
+               }
+               else
+               {
+                   write-host $ErrorMessage -ForegroundColor Red
+               }
             }
-    
-         }   
-     }
+        }   
+    }
      
-   
-     Write-Host "Ending import of starting solution"
+    Write-Host "Ending import of starting solution"
 }
 
 function Verify-SolutionFile-ToEnv
 {
  param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps Test - ",
-    [Parameter(Mandatory = $false)]    
-    [string]$uniquename,
+    [string]$namePrefix="Development",
+    [Parameter(Mandatory = $true)]    
+    [string]$uniquename="ContosoDeviceOrderManagement",
     [Parameter(Mandatory = $false)]
     [string]$APIUrl = "https://admin.services.crm.dynamics.com"   
     )
 
-
     Write-Host "Starting verify solution"
-    
-    
    
     $cdsInstances = Get-CrmInstances -ApiUrl $APIUrl -Credential $UserCredential 
 
@@ -811,14 +732,10 @@ function Verify-SolutionFile-ToEnv
 
     Write-Host "Found " $envlist.Count " environments to process"
 
-    ForEach ($environemnt in $envlist) { 
+    ForEach ($environment in $envlist) { 
      
-            Write-Host "Processing environment :" $environemnt.FriendlyName
-
-
-        $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environemnt.ApplicationUrl
-                                      
-
+        Write-Host "Processing environment :" $environment.FriendlyName
+        $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environment.ApplicationUrl -ForceOAuth
         $solutionList = Get-CrmRecords `
             -EntityLogicalName solution `
             -Fields uniquename `
@@ -831,21 +748,27 @@ function Verify-SolutionFile-ToEnv
         }
         else
         {
-            Write-Host "   Solution Not Found:" $environemnt.FriendlyName -ForegroundColor Red
+            Write-Host "   Solution Not Found:" $environment.FriendlyName -ForegroundColor Red
         }
     
-        }   
-    
-     
-   
-     Write-Host "Ending import of starting solution"
+    }   
+    Write-Host "Ending verify of starting solution"
+
+    if ($sol.Count -eq 1)
+    {
+        return $true
+    }
+    else
+    {
+        return $false
+    }
 }
 
 function Create-CDSenvironment {
 
     param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps Test - ",
+    [string]$namePrefix="Prod - ",
     [Parameter(Mandatory = $false)]
     [string]$password=$UserPassword,
     [Parameter(Mandatory = $false)]
@@ -859,9 +782,12 @@ function Create-CDSenvironment {
     $starttime= Get-Date -DisplayHint Time
     Write-Host " Starting CreateCDSEnvironment :" $starttime   -ForegroundColor Green
 
+    $userQuery = '*.onmicrosoft.com'
+    $studentUsers = Get-MsolUser | where {$_.UserPrincipalName -like $userQuery} | where {$_.UserPrincipalName -ne $UserCredential.UserName} | Sort-Object UserPrincipalName
+
     $securepassword = ConvertTo-SecureString -String $password -AsPlainText -Force
     $users = Get-MsolUser | where {$_.UserPrincipalName -like $userprefix } | Sort-Object UserPrincipalName
-
+    $users=$studentUsers
     $allEnvList = @(Get-AdminPowerAppEnvironment)
     
     ForEach ($user in $users) { 
@@ -877,32 +803,26 @@ function Create-CDSenvironment {
         if ($EnvSKU -eq "Trial")
         {
             write-host " switching to user " $user.UserPrincipalName 
-
             Add-PowerAppsAccount -Username $user.UserPrincipalName -Password $securepassword -Verbose
         }
 
         write-host " creating environment for user " $user.UserPrincipalName 
          
-         $envDisplayname = $namePrefix + $user.UserPrincipalName.Split('@')[0] 
-         $envDisplayname
-
-         $envQuery = $envDisplayname + "*"
-         
-         $envDevList = @($allEnvList.where( { $_.DisplayName -like $envQuery }))         
+        $envDisplayname = $namePrefix + $user.UserPrincipalName.Split('@')[0] 
+        $envDisplayname
+        $envQuery = $envDisplayname + "*"
+        $envDevList = @($allEnvList.where( { $_.DisplayName -like $envQuery }))         
         
         if ($envDevList.count -eq 0 ) { 
        
             $envDev = New-AdminPowerAppEnvironment -DisplayName  $envDisplayname -LocationName $CDSlocation -EnvironmentSku $EnvSKU 
-            
-       
-            Write-Host " Created CDS Environment with id :" $envDev.DisplayName   -ForegroundColor Green 
+            Write-Host " Created Power Platform Environment with id :" $envDev.DisplayName   -ForegroundColor Green 
         }
         else{
-            Write-Host " Skipping CDS Environment with id :" $envDev.DisplayName " it already exists"  -ForegroundColor Green 
+            Write-Host " Skipping Power Platform Environment with id :" $envDev.DisplayName " it already exists"  -ForegroundColor Green 
         }
-             
-         
     }
+
     if ($EnvSKU -eq "Trial")
     {
         write-host " switching back to user " $UserCredential.UserName 
@@ -912,77 +832,69 @@ function Create-CDSenvironment {
     $endtime = Get-Date -DisplayHint Time
     $duration = $("{0:hh\:mm\:ss}" -f ($endtime-$starttime))
     Write-Host "End of CreateCDSEnvironment at : " $endtime "  Duration: " $duration   -ForegroundColor Green
-
 }
-
 
 
 function Create-CDSDatabases {
  param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps"
+    [string]$namePrefix="Prod - "
     )
 
         $searchPrefix = '*' + $namePrefix + '*'
-
         $starttime= Get-Date -DisplayHint Time
         Write-Host "Starting CreateCDSDatabases :" $starttime   -ForegroundColor Green
 
         $CDSenvs = Get-AdminPowerAppEnvironment | where { $_.DisplayName -like $searchPrefix -and $_.commonDataServiceDatabaseType -eq "none"} | Sort-Object displayname
-              
         
-        Write-Host "creating CDS databases for following environments :
+        Write-Host "creating Dataverse databases for following environments :
           " $CDSenvs.DisplayName "
         ****************************************************************
         ****************************************************************" -ForegroundColor Green
 
         ForEach ($CDSenv in $CDSenvs) { 
-         $CDSenv.EnvironmentName
-         Write-Host "creating CDS databases for:" $CDSenv.DisplayName " id:" $CDSenv.EnvironmentName -ForegroundColor Yellow
-           
-             New-AdminPowerAppCdsDatabase -EnvironmentName  $CDSenv.EnvironmentName -CurrencyName USD -LanguageName 1033  -ErrorAction Continue -WaitUntilFinished $false   -Templates @(“D365_CDSSampleApp“)
-           
+            $CDSenv.EnvironmentName
+            Write-Host "creating Dataverse databases for:" $CDSenv.DisplayName " id:" $CDSenv.EnvironmentName -ForegroundColor Yellow
+            New-AdminPowerAppCdsDatabase -EnvironmentName  $CDSenv.EnvironmentName -CurrencyName USD -LanguageName 1033  -ErrorAction Continue -WaitUntilFinished $false   -Templates @(“D365_CDSSampleApp“)
         }
 
         Wait-ForCDSProvisioning -namePrefix $namePrefix
 
-
         $endtime = Get-Date -DisplayHint Time
         $duration = $("{0:hh\:mm\:ss}" -f ($endtime-$starttime))
-        Write-Host "End of CreateCDSDatabases at : " $endtime "  Duration: " $duration   -ForegroundColor Green
-        
+        Write-Host "End of CreateCDSDatabases at : " $endtime "  Duration: " $duration   -ForegroundColor Green       
 }
 
 function Wait-ForEnvProvisioning{
 
 param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps",
+    [string]$namePrefix="Prod - ",
     [Parameter(Mandatory = $true)]
     [int]$envCount
     )
 
         $searchPrefix = '*' + $namePrefix + '*'
+        $count=0
 
         Write-host "Checking on provisioning status of environments"
         Do  
         {
-            
             $CDSenvs = @(Get-AdminPowerAppEnvironment | where { $_.DisplayName -like $searchPrefix  })         
-            
-            
             if ($CDSenvs.count -ne $envCount)
             {
-                Write-Host "There are" $CDSenvs.count "environments of $envCount - Waiting 30 seconds "
-                Start-Sleep -s 30
+                $count++
+                Write-Host "There are" $CDSenvs.count "environments of $envCount - Waiting 10 seconds "
+                Start-Sleep -s 10
             }
-        } While ($CDSenvs.count -ne $envCount)
+        } While ($CDSenvs.count -ne $envCount -and $count -lt 5)
 }
+
 function Wait-ForCDSProvisioning{
 
 param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps"
+    [string]$namePrefix="Prod - "
     )
 
         $searchPrefix = '*' + $namePrefix + '*'
@@ -990,23 +902,22 @@ param(
         Write-host "Checking on provisioning status of CDS"
         Do  
         {
-            
             $CDSenvs = @(Get-AdminPowerAppEnvironment | where { $_.DisplayName -like $searchPrefix -and $_.CommonDataServiceDatabaseProvisioningState -ne "Succeeded" })         
-            
             
             if ($CDSenvs.count -gt 0)
             {
-                Write-Host "There are" $CDSenvs.count "CDS provisionings left - Waiting 30 seconds "
-                Start-Sleep -s 30
+                $count++
+                Write-Host "There are" $CDSenvs.count "Dataverse provisionings left - Waiting 10 seconds "
+                Start-Sleep -s 10
             }
-        } While ($CDSenvs.count -gt 0)
+        } While ($CDSenvs.count -gt 0 -and $count -lt 10)
 }
 
 function Wait-ForCDSDeleting{
 
 param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps"
+    [string]$namePrefix="Prod - "
     )
 
         $searchPrefix = '*' + $namePrefix + '*'
@@ -1016,62 +927,56 @@ param(
         {
             
             $CDSenvs = @(Get-AdminPowerAppEnvironment | where { $_.DisplayName -like $searchPrefix  })         
-            
-            
+
             if ($CDSenvs.count -gt 0)
             {
-                Write-Host "There are" $CDSenvs.count "CDS removals left - Waiting 30 seconds "
+                Write-Host "There are" $CDSenvs.count "Dataverse removals left - Waiting 30 seconds "
                 Start-Sleep -s 30
             }
         } While ($CDSenvs.count -gt 0)
 }
 
-
 function Setup-AddLabAdminToSysAdmin-StudentEnvs{
 
     param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps Test - "
+    [string]$namePrefix="Prod - ",
+    [Parameter(Mandatory = $false)]
+    [string]$APIUrl = "https://admin.services.crm.dynamics.com"
     )
 
     Write-Host "Starting add lab admin to test environment as sysadmin"
 
+    $AdminAPIUrl = Get-AdminServiceUrl -CDSlocation $CDSlocation  -APIUrl $APIUrl
     $role = 'System Administrator'
-
     $cdsInstances = Get-CrmInstances -ApiUrl $AdminAPIUrl -Credential $UserCredential 
-
     $searchPrefix = '*' + $namePrefix + '*'
-
     $envlist=$cdsInstances.Where({$_.EnvironmentType  -ne 'Default'}).Where({$_.FriendlyName -like $searchPrefix })
 
     Write-Host "Found " $envlist.count " environments to process"
 
-        ForEach ($environemnt in $envlist) { 
-     
-         Write-Host "Processing environment :" $environemnt.FriendlyName
-
-
-         $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environemnt.ApplicationUrl
-
-#        $conn.IsReady,$conn.ConnectedOrgFriendlyName
+        ForEach ($environment in $envlist) { 
     
-   
-        $users = Get-CrmRecords `
+            Write-Host "Processing environment :" $environment.FriendlyName
+            $conn = Connect-CrmOnline -Credential $UserCredential -ServerUrl $environment.ApplicationUrl -ForceOAuth
+#            $conn.IsReady
+#            $conn.ConnectedOrgFriendlyName
+            $users = Get-CrmRecords `
                -EntityLogicalName systemuser `
                -Fields domainname,systemuserid, fullname `
                -conn $conn
               
-        $compareString =$conn.ConnectedOrgFriendlyName -replace $namePrefix,"*" 
-        $compareString = $compareString +  "@*"
-        Write-Host "comparing("$compareString")"
+            $compareString =$conn.ConnectedOrgFriendlyName -replace $namePrefix,"*" 
+            $compareString = $compareString +  "@*"
+#            Write-Host "comparing("$compareString")"
 
-     $selectedUsers = $users.CrmRecords | where { $_.domainname -like $compareString} | Sort-Object domainname
+            $selectedUsers = $users.CrmRecords | where { $_.domainname -like $compareString} | Sort-Object domainname
 
-        Write-Host "Found "$selectedUsers.count " users to process"
+#            Write-Host "Found "$selectedUsers.count " users to process"
 
-        ForEach ($user in $selectedUsers) { 
+            ForEach ($user in $selectedUsers) { 
 
-            write-host "  adding user "$user.fullname" to group sysadmin"
+#            write-host "  adding user "$user.fullname" to group sysadmin"
 
             try
             {
@@ -1081,8 +986,7 @@ function Setup-AddLabAdminToSysAdmin-StudentEnvs{
                    -conn $conn
 
                 write-host "  added user "  $user.fullname  " to group sysadmin"
-
-             }
+            }
             Catch
             {
                 $ErrorMessage = $_.Exception.Message        
@@ -1094,15 +998,10 @@ function Setup-AddLabAdminToSysAdmin-StudentEnvs{
                 {
                     write-host $ErrorMessage -ForegroundColor Red
                 }
-                
-        
             }
-        
-         } #foreach user
-
-    
-     }   #foreach env
-     Write-Host "Ending add lab admin to test environment as sysadmin"
+        } #foreach user
+    }   #foreach env
+    Write-Host "Ending add lab admin to test environment as sysadmin"
 }
 
 function Get-AdminServiceUrl
@@ -1136,14 +1035,14 @@ function Delete-CDSenvironment
 {
 param(
     [Parameter(Mandatory = $true)]
-    [string]$namePrefix="Central Apps Test - "    
+    [string]$namePrefix="Prod - "    
     )
   
     $searchPrefix =  $namePrefix + '*'
     
-    #delete all environemnt
+    #delete all environment
     $envlist=Get-AdminPowerAppEnvironment | where {$_.DisplayName -like $searchPrefix}
-    ForEach ($environemnt in $envlist) { 
-     Remove-AdminPowerAppEnvironment -EnvironmentName $environemnt.EnvironmentName
+    ForEach ($environment in $envlist) { 
+        Remove-AdminPowerAppEnvironment -EnvironmentName $environment.EnvironmentName
     }
 }
