@@ -22,7 +22,7 @@ You should consider having the delegates perform the same at the beginning of th
     Make sure you open PowerShell as an **administrator**. See <https://docs.microsoft.com/powershell/scripting/learn/ps101/01-getting-started#how-do-i-launch-powershell> for how to start PowerShell
 
 > [!NOTE]
-> You can use the PowerShell command line or the PowerShell ISE
+> You can use the PowerShell command line or the PowerShell ISE. The setup process is documented to use, and was tested with, the Windows PowerShell ISE application. If you are not familiar with Windows PowerShell ISE, you can find more information at <https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/ise/introducing-the-windows-powershell-ise>.
 
 2.  New-Item -Path "C:\" -Name "LabFiles" -ItemType "directory"
 3.  Set-Location C:\LabFiles
@@ -56,7 +56,9 @@ You should consider having the delegates perform the same at the beginning of th
 
 3.  Set-Location C:\LabFiles\Allfiles
 
-4.  Edit Setup.ps1
+4.  File -\> Open **Setup.ps1**
+
+5.  Edit Setup.ps1
 
     If you are using an Authorized Lab Hoster (ALH) lab, you will have a shared licensed production tenant containing Dynamics 365 with pre-created users. Set the following variables in Setup.ps1:
 
@@ -68,14 +70,14 @@ You should consider having the delegates perform the same at the beginning of th
     - $LabAdminPowerLicense="POWERAPPS_PER_USER"
     - $ALH=$false
 
-5.  Run **Setup.ps1**
+6.  Run **Setup.ps1**  by pressing F5 or by clicking the play icon
 
 > [!NOTE]
 > If prompted answer with A [Yes to All]
 
 ![Setup script output.](../Instructions/media/setup-script-output.png)
 
-6.  Run the following command:
+7.  Run the following command:
 
     **Start-PL600-Setup -TenantName <Tenant name>  -CDSLocation <Region> -UserCount <Number of Students>**
 
@@ -108,6 +110,7 @@ You should consider having the delegates perform the same at the beginning of th
 ## **Check Dataverse environments**
 
 1.  Navigate to the Power Platform Admin Center <https://admin.microsoft.com/AdminPortal/Home>
+
 2.  Verify that there is an environment for each student
 
 ![Environments for ALM.](../Instructions/media/alm-environments.png)

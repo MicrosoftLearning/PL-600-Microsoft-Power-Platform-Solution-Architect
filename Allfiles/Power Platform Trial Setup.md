@@ -85,7 +85,7 @@ For this screen, use a valid email address (**not your business email address**)
 
 13. Click **Get Started**
 
-#### **Configure Microsoft 365**
+### **Configure Microsoft 365**
 
 1. Navigate to the Microsoft 365 Admin Centre <https://admin.microsoft.com/AdminPortal/Home>
 
@@ -102,3 +102,17 @@ Verify that your user has all licenses assigned
 4. **Close** the pane
 
 You are now ready to perform the ALM setup instructions.
+
+### **Rename default environment**
+
+1. Navigate to the Power Platform admin centre <https://admin.powerplatform.microsoft.com>
+
+2. Select **Environments**
+
+3. Click on the default environment which will be named after the name your entered for **your business**
+
+4. Click **Edit**
+
+5. Change the environment name to **Personal Productivity**
+
+6. Click **Save**
