@@ -401,6 +401,32 @@ solution to test/production. You will then run the pipeline.
 
     f. Click **Save** again
 
+12. Configure Repository security
+
+    a. Click **Project Settings** in the bottom left corner of the Azure DevOps
+
+    ![Project settings](../media/alm-project-settings.png)
+
+    b. Select **Repositories** in the settings pane.
+
+    ![Repositories in Project settings](../media/alm-settings-repositories.png)
+
+    c. Select the **Device Management lastnameMMYY** repo.
+
+    ![Select repository in Project settings](../media/alm-select-respository.png)
+
+    d. Select the **Security** tab
+
+    e. Search for **Device Management lastnameMMYY Build Service** and the select **Device Management lastnameMMYY Build Service** user
+
+    ![Search for Device Management build service](../media/alm-project-security-device-management-user.png)
+
+    f. Select **Project Collection Build Service Accounts**
+
+    ![Enable Contribute](../media/alm-project-security-device-management-contribute.png)
+
+    g. Locate **Contribute** and select **Allow**.
+
 ### **Task 2: Run the Pipeline**
 
 1.  Open the build pipeline
@@ -528,7 +554,7 @@ In a real project this is where you could add steps to import the solution into 
 
     f. Click **Save** again
 
-4.  Add a Publish task for the solution
+5.  Add a Publish task for the solution
 
     a. Click **+** icon to add a task **Agent Job 1**
 
@@ -540,7 +566,9 @@ In a real project this is where you could add steps to import the solution into 
 
     e. Enter **\$(Build.ArtifactStagingDirectory)\\\$(SolutionName)_managed.zip** for **File or directory Path**
 
-    f. Enter **drop** for **Artifact Name** for **Solution Output Folder**
+    f. Enter **drop** for **Artifact Name**
+ 
+    ![Publish Pipeline Artifacts task](../media/alm-publish-task.png)
 
     g. Click **Save & Queue** and select **Save & Queue** and click **Save and Run**
 
@@ -548,7 +576,11 @@ In a real project this is where you could add steps to import the solution into 
 
     i. Click to open the job
 
+    ![Artifacts link](../media/alm-artifacts-link.png)
+
     j. Click on the **Artifact** link
+
+    ![Drop folder link](../media/alm-drop-folder.png)
 
     k. Expand the **drop** folder and you should see the managed solution
 
@@ -668,11 +700,13 @@ For the purposes of this lab we are only going to deploy to one production envir
 
     b. Click **Create**
 
-    c. Select **Releases** and click to open the release
+    c. Select **Release-1** and click to open the release
+
+    ![Screenshot of release in progress](../media/alm-release-in-progress.png)
 
     d. Wait for the release tasks to complete
 
-2.  Verify solution has been released
+2.  Verify the managed solution has been imported
 
     a. Log on to <https://make.powerapps.com>
 
@@ -684,7 +718,7 @@ For the purposes of this lab we are only going to deploy to one production envir
 
     d. Click to open the **Contoso Device Order Management** solution
 
-    You should see the **You cannot edit managed** solution message
+    You should see the **You cannot directly edit the components within a managed solution** notification message
 
     e. Select **Apps**
 
