@@ -15,11 +15,13 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
 
     b. Click **Import**
 
-    c. Browse to the SecuritySystem_1_0_0_0.zip solution file
+    c. Browse to the **SecuritySystem_1_0_0_0.zip** solution file
 
     d. Click **Next**
 
     e. Click **Import**
+
+    f. **Publish** the solution
 
 **Test data**
 ---------------
