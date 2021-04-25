@@ -1,0 +1,53 @@
+# 'Allow scripts to access the OAuth token' was selected in pipeline.  Add the following YAML to any steps requiring access:
+#       env:
+#           MY_ACCESS_TOKEN: $(System.AccessToken)
+# Variable 'SolutionName' was defined in the Variables tab
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: vs2017-win2016
+  steps:
+  - checkout: self
+    persistCredentials: True
+  - task: PowerPlatformToolInstaller@0
+    displayName: 'Power Platform Tool Installer '
+  - task: PowerPlatformExportSolution@0
+    displayName: 'Power Platform Export Solution '
+    inputs:
+      PowerPlatformEnvironment: 'Dev Connection'
+      SolutionName: $(SolutionName)
+      SolutionOutputFile: $(Build.ArtifactStagingDirectory)\$(SolutionName).zip
+  - task: PowerPlatformExportSolution@0
+    displayName: 'Power Platform Export Solution '
+    inputs:
+      PowerPlatformEnvironment: 'Dev Connection'
+      SolutionName: $(SolutionName)
+      SolutionOutputFile: $(Build.ArtifactStagingDirectory)\$(SolutionName)_managed.zip
+      Managed: true
+  - task: PowerPlatformUnpackSolution@0
+    displayName: 'Power Platform Unpack Solution '
+    inputs:
+      SolutionInputFile: $(Build.ArtifactStagingDirectory)\$(SolutionName).zip
+      SolutionTargetFolder: $(Build.SourcesDirectory)\$(SolutionName)
+      SolutionType: Both
+  - task: CmdLine@2
+    displayName: Command Line Script - Check In
+    inputs:
+      script: >
+        echo commit all changes
+
+        git config user.email "myuser@WWLLABxxx.onmicrosoft.com"
+
+        git config user.name "Automatic Build"
+
+        git checkout main
+
+        git add --all
+
+        git commit -m "solution updates"
+
+        echo push code to new repo
+
+        git -c http.extraheader="AUTHORIZATION: bearer \$(System.AccessToken)" push origin main
+...
