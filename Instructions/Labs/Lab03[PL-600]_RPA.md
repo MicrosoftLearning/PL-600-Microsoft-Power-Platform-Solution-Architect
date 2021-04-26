@@ -1,3 +1,8 @@
+---
+lab:
+    title: 'Lab 03: Robotic Process Automation'
+---
+
 # **Module 15: Robotic Process Automation**
 
 ## **Lab Scenario**
