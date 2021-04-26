@@ -15,13 +15,15 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
 
     b. Click **Import**
 
-    c. Browse to the SecuritySystem_1_0_0_0.zip solution file
+    c. Browse to the **SecuritySystem_1_0_0_0.zip** solution file
 
     d. Click **Next**
 
     e. Click **Import**
 
-**Sample data**
+    f. **Publish** the solution
+
+**Test data**
 ---------------
 
 1. From Maker portal center: <https://make.powerapps.com>
@@ -52,11 +54,11 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
 
     b. Select the **Data** tab
 
-    c. Add two room records for one of the buildings in Tunisia
+    c. Add two room records for the building in Tunisia
 
-    d. Add one room record for the building in Morocco
+    d. Add one room record for each of the buildings in Morocco
 
-7. Visit data
+6. Visit data
 
     a. Select **Visit** table
 

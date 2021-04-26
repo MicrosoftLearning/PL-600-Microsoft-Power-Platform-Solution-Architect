@@ -30,7 +30,7 @@ In this exercise, you verify that you have access to the DEV environment and ver
 ### **Task 1: Verify environments**
 
 1.  Navigate to the Power Platform Admin Center: <https://admin.powerplatform.microsoft.com>
-2.  Provide your tenant credentials and click **Next**.
+2.  Provide your tenant credentials and click **Next**
 3.  Provide your password and click **Sign in**
 4.  Click **Yes**
 5.  Select **Environments**
@@ -61,19 +61,41 @@ In this exercise, you verify that you have access to the DEV environment and ver
 1.  Navigate to the Power Platform Admin Center: <https://admin.powerplatform.microsoft.com>
 2.  Select **Environments**
 3.  Select the **Device Ordering Development** environment
-4.  Copy the **Environment URL** and into a notepad
+4.  Copy the **Environment URL** into a notepad
 5.  Select **Environments**
 6.  Select your **Prod** environment
-7.  Copy the **Environment URL** and into a notepad
+7.  Copy the **Environment URL** into a notepad
 
-## **Exercise 2: Initialize Azure DevOps**
+## **Exercise 2: Azure Subscription**
+
+In this exercise, you will sign up for an Azure subscription using an Azure 30-day Pass.
+
+> [!NOTE]
+> An Azure Pass is required to provide Azure credits for use with Azure DevOps pipelines
+
+### **Task 1: Redeem Azure Pass**
+
+1. Get an Azure Pass from your learning provider/instructor.
+2. Navigate to <https://www.microsoftazurepass.com>
+3. Click **SIGN IN**
+4. Provide your tenant credentials and click **Next**
+5. Provide your password and click **Sign in**
+6. Click **Yes**
+7. Click **CONFIRM MICROSOFT ACCOUNT**
+
+![Claim Azure Pass](../media/claim-azure-pass.png)
+
+8. Enter the Azure Pass code and click **Claim Promo Code**
+9. Follow the steps at <https://www.microsoftazurepass.com/Home/HowTo> to redeem the Azure Pass
+
+## **Exercise 3: Initialize Azure DevOps**
 
 In this exercise, you will setup an Azure DevOps account and configuring the Power Platform build tools for the account.
 
 > [!NOTE]
 > If you already have an Azure DevOps organization outside of this course and this environment, you **CANNOT** use that organization for this lab. You will need to follow the below instructions to sign up.
 
-### **Task 1: Setup for Azure DevOps**
+### **Task 1: Setup Azure DevOps**
 
 1. Sign up for Azure DevOps
 
@@ -104,7 +126,25 @@ In this exercise, you will setup an Azure DevOps account and configuring the Pow
 > [!NOTE]
 > For some users, this page might have the heading "We need a few more details". Ensure that you enter the organization name and not miss this step.
 
-2.  Create a Azure DevOps project
+2.  Setup billing for Azure DevOps
+
+    a. Choose the newly created organization, and click **Organization settings** in the bottom left-hand corner of the screen
+
+    ![Organization settings](../media/dev-ops-organization.png)
+
+    b. Click **Billing** and **Setup billing**
+
+    c. Select the Azure Pass subscription and click **Save**
+    
+    d. Set **Paid parallel jobs** to **1** for **MS Hosted CI/CD**
+
+    ![Parallel jobs for Pipelines ](../media/dev-ops-billing.png)
+
+    e. Click **SAVE** at the bottom of the screen
+
+    f. Click on the **Azure DevOps** logo in top left of the screen
+
+3.  Create a Azure DevOps project
 
     Projects are containers in Azure DevOps that track work items and source assets. When you set up the automation for the deployment tasks, those will be pipelines built in the context of a project.
 
@@ -116,7 +156,7 @@ In this exercise, you will setup an Azure DevOps account and configuring the Pow
 
     c. Click **Create project**
 
-3.  Initialize Repository
+4.  Initialize Repository
 
     An Azure Repo is a source/version control container inside the Azure DevOps project and is used to track changes you make. You will be using it to store     the solution files for the team building the Device Ordering app.
 
@@ -130,7 +170,7 @@ In this exercise, you will setup an Azure DevOps account and configuring the Pow
 
 ### **Task 2: Request grant of parallel pipeline jobs**
 
-1.  Request access to free tier
+1.  If you do not have an Azure Pass, request access to Azure DevOps free tier
 
     a. Send an email to azpipelines-freetier@microsoft.com. Include the following information in the email, your name and the name of the Azure DevOps organization: **Device Management lastnameMMYY**
 
@@ -193,7 +233,7 @@ In this exercise, you will setup an Azure DevOps account and configuring the Pow
 
     ![Show More](../media/alm-expand.png)
 
-## **Exercise 3: Export Pipeline**
+## **Exercise 4: Export Pipeline**
 
 In this exercise, you will build an Azure DevOps pipeline that will export the solution from the development environment, unpack the solution file to individual files and then check those files into the repository. These solution files can then be used to re-create development environments or promote the
 solution to test/production. You will then run the pipeline.
@@ -401,6 +441,32 @@ solution to test/production. You will then run the pipeline.
 
     f. Click **Save** again
 
+12. Configure Repository security
+
+    a. Click **Project Settings** in the bottom left corner of the Azure DevOps
+
+    ![Project settings](../media/alm-project-settings.png)
+
+    b. Select **Repositories** in the settings pane.
+
+    ![Repositories in Project settings](../media/alm-settings-repositories.png)
+
+    c. Select the **Device Management lastnameMMYY** repo.
+
+    ![Select repository in Project settings](../media/alm-select-respository.png)
+
+    d. Select the **Security** tab
+
+    e. Search for **Device Management lastnameMMYY Build Service** and the select **Device Management lastnameMMYY Build Service** user
+
+    ![Search for Device Management build service](../media/alm-project-security-device-management-user.png)
+
+    f. Select **Project Collection Build Service Accounts**
+
+    ![Enable Contribute](../media/alm-project-security-device-management-contribute.png)
+
+    g. Locate **Contribute** and select **Allow**.
+
 ### **Task 2: Run the Pipeline**
 
 1.  Open the build pipeline
@@ -441,7 +507,7 @@ solution to test/production. You will then run the pipeline.
 
     c. Examine the content of each folder.
 
-## **Exercise 4: Build managed solution and publish artifacts**
+## **Exercise 5: Build managed solution and publish artifacts**
 
 In this exercise, you will take the solution files checked into the repo in the previous steps and re-package them into a managed solution file. This solution
 file will be published as a build artifact so it can be used in the release pipeline that we are going to use to publish to test and production.
@@ -528,7 +594,7 @@ In a real project this is where you could add steps to import the solution into 
 
     f. Click **Save** again
 
-4.  Add a Publish task for the solution
+5.  Add a Publish task for the solution
 
     a. Click **+** icon to add a task **Agent Job 1**
 
@@ -540,7 +606,9 @@ In a real project this is where you could add steps to import the solution into 
 
     e. Enter **\$(Build.ArtifactStagingDirectory)\\\$(SolutionName)_managed.zip** for **File or directory Path**
 
-    f. Enter **drop** for **Artifact Name** for **Solution Output Folder**
+    f. Enter **drop** for **Artifact Name**
+ 
+    ![Publish Pipeline Artifacts task](../media/alm-publish-task.png)
 
     g. Click **Save & Queue** and select **Save & Queue** and click **Save and Run**
 
@@ -548,14 +616,18 @@ In a real project this is where you could add steps to import the solution into 
 
     i. Click to open the job
 
+    ![Artifacts link](../media/alm-artifacts-link.png)
+
     j. Click on the **Artifact** link
+
+    ![Drop folder link](../media/alm-drop-folder.png)
 
     k. Expand the **drop** folder and you should see the managed solution
 
 > [!NOTE]
 > The artifact link can be found by selecting **Agent job 1**. If you do not see the artifacts, refresh the browser and it will appear.
 
-## **Exercise 5: Release Pipeline**
+## **Exercise 6: Release Pipeline**
 
 In this exercise, you will build a release pipeline. The release pipeline is intended to take the output from the build pipeline and coordinate deployments to one or more release environments. A common release pipeline might deploy to dev -\> test -\> user acceptance -\> production. Release pipelines can have approval requirements between each environment.
 
@@ -668,11 +740,13 @@ For the purposes of this lab we are only going to deploy to one production envir
 
     b. Click **Create**
 
-    c. Select **Releases** and click to open the release
+    c. Select **Release-1** and click to open the release
+
+    ![Screenshot of release in progress](../media/alm-release-in-progress.png)
 
     d. Wait for the release tasks to complete
 
-2.  Verify solution has been released
+2.  Verify the managed solution has been imported
 
     a. Log on to <https://make.powerapps.com>
 
@@ -684,7 +758,7 @@ For the purposes of this lab we are only going to deploy to one production envir
 
     d. Click to open the **Contoso Device Order Management** solution
 
-    You should see the **You cannot edit managed** solution message
+    You should see the **You cannot directly edit the components within a managed solution** notification message
 
     e. Select **Apps**
 

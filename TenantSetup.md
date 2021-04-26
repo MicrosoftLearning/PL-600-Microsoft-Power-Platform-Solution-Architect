@@ -46,4 +46,4 @@ Follow the steps in the RPA lab setup document. In these instructions you will a
 Step 4 - App Exercise Setup
 ---------------------------
 
-Follow the steps in the App lab setup document. In these instructions you will import a solution add a trial of Power Automate RPA and configures users.
+Follow the steps in the App lab setup document. In these instructions you will import the solution used in the exercise.
