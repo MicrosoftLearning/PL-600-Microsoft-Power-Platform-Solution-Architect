@@ -1,3 +1,8 @@
+---
+lab:
+    title: 'Lab 00: Validate lab environment'
+---
+
 # Lab 0 - Setup for ALM lab
 1.  Get a new Azure Pass (valid for 30-days) from the instructor or other source. 
 2.  Use a private browser session, go to Microsoftazurepass.com to redeem your Azure Pass using the tenant credentials provided to you). (Redeem a Microsoft Azure Pass) Follow the instructions for redemption. 
