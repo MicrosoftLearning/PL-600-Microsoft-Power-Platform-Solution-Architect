@@ -1,3 +1,8 @@
+---
+lab:
+    title: 'Lab 02: App composition and solution segmentation'
+---
+
 # **Module 8: App composition and solution segmentation**
 
 ## **Lab Scenario**
