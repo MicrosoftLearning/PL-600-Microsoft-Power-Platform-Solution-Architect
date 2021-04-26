@@ -1,3 +1,8 @@
+---
+lab:
+    title: 'Lab 01: Application Lifecycle Management'
+---
+
 # **Module 8: Application Lifecycle Management**
 
 ## **Scenario**
