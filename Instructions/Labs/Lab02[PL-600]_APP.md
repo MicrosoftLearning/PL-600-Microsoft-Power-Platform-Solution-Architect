@@ -18,7 +18,7 @@ A solution is required to manage building security:
 - Security staff shifts
 - Incidents
 
-A Minimal Viable Product (PVP) has been developed for Phase 1, visitor tracking, in the Power Platform.
+A Minimal Viable Product (PVP) has been developed for Phase 1, visitor tracking, in the Microsoft Power Platform.
 
 The entity relationship diagram for the MVP is as follows:
 
