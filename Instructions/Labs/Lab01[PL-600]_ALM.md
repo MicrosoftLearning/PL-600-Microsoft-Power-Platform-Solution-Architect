@@ -684,7 +684,7 @@ For the purposes of this lab we are only going to deploy to one production envir
 
     f. Click **Save**
 
-    g. Click **Save** again
+    g. Click **Ok**
 
 2.  Add an artifact
 
