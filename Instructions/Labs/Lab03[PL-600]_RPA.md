@@ -34,7 +34,7 @@ In this exercise you will install the legacy invoicing application and Power Aut
 
 ![Contoso Invoice application installer.](../media/install-invoicing-app.png)
 
-4. Run **ContosoInvoicingSetup.exe**
+4. Open the folder **Prerequiste 1.3 Install Contoso Invoicing app**. Run **ContosoInvoicingSetup.exe**
 5. Complete the installation with the defaults
 
 ### **Task 2: Power Automate Desktop**
