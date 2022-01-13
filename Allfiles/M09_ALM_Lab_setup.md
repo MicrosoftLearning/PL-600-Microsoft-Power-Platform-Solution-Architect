@@ -109,7 +109,7 @@ You should consider having the delegates perform the same at the beginning of th
 
 ## **Check Dataverse environments**
 
-1.  Navigate to the Power Platform Admin Center <https://admin.microsoft.com/AdminPortal/Home>
+1.  Navigate to the Power Platform Admin Center <https://admin.powerplatform.microsoft.com/>
 
 2.  Verify that there is an environment for each student
 
