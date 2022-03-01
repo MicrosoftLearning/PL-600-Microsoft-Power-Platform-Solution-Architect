@@ -63,7 +63,7 @@ In this exercise, you verify that you have access to the DEV environment and ver
 
 ### **Task 2: Environment URLs**
 
-1.  Navigate to the Power Platform Admin Center: <https://admin.powerplatform.microsoft.com>
+1.  Navigate to the Power Platform Admin Center: <https://admin.powerplatform.com>
 2.  Select **Environments**
 3.  Select the **Device Ordering Development** environment
 4.  Copy the **Environment URL** into a notepad
