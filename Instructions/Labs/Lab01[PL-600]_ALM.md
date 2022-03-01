@@ -718,9 +718,7 @@ For the purposes of this lab we are only going to deploy to one production envir
 
     f. Enter **\$(System.DefaultWorkingDirectory)/_Build Managed Solution/drop/\$(SolutionName)_managed.zip** for **Solution Input File**
 
-    g. Enter **\$(Build.ArtifactStagingDirectory)\\\$(SolutionName)_managed.zip** for **Solution Output File**
-
-    i. Click **Save** and click **OK**
+    g. Click **Save** and click **OK**
 
 > [!NOTE]
 > There are spaces around the word Managed.
