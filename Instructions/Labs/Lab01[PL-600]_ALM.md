@@ -34,7 +34,7 @@ In this exercise, you verify that you have access to the DEV environment and ver
 
 ### **Task 1: Verify environments**
 
-1.  Navigate to the Power Platform Admin Center: <https://admin.powerplatform.microsoft.com>
+1.  Navigate to the Power Platform Admin Center: <https://admin.powerplatform.com>
 2.  Provide your tenant credentials and click **Next**
 3.  Provide your password and click **Sign in**
 4.  Click **Yes**
