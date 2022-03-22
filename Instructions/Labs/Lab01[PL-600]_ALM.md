@@ -59,7 +59,7 @@ In this exercise, you verify that you have access to the DEV environment and ver
 
     c. Create a database: **On**
 
-8.  Click **Save**
+8. Select **Next**, then select the **Save** button.
 
 ### **Task 2: Environment URLs**
 
