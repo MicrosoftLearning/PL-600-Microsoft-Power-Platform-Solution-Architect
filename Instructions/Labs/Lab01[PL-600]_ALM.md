@@ -224,7 +224,7 @@ In this exercise, you will setup an Azure DevOps account and configuring the Pow
 
     e. Select the **Security** tab
 
-    f. Search for **Project Collection Build Service** and select the one not called **Project Collection Build Service Accounts** 
+    f. Search for **Project Collection Build Service**
 
     ![Search for Project collection build service](../media/alm-project-security-user.png)
 
