@@ -234,10 +234,6 @@ In this exercise, you will setup an Azure DevOps account and configuring the Pow
 
     h. Locate **Contribute** and select **Allow**.
 
-    i. Click **Show More** to expand the menu.
-
-    ![Show More](../media/alm-expand.png)
-
 ## **Exercise 4: Export Pipeline**
 
 In this exercise, you will build an Azure DevOps pipeline that will export the solution from the development environment, unpack the solution file to individual files and then check those files into the repository. These solution files can then be used to re-create development environments or promote the
