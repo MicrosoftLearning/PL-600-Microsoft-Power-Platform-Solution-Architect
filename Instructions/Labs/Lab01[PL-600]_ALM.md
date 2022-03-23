@@ -466,8 +466,6 @@ solution to test/production. You will then run the pipeline.
 
     ![Search for Device Management build service](../media/alm-project-security-device-management-user.png)
 
-    f. Select **Project Collection Build Service Accounts**
-
     ![Enable Contribute](../media/alm-project-security-device-management-contribute.png)
 
     g. Locate **Contribute** and select **Allow**.
