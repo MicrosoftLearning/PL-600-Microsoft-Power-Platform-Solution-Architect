@@ -255,7 +255,7 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
     a. Variable name: **InvoiceReference**
 
-    b. Data Type: **Text**
+    b. Data Type: **String**
 
     d. External name: **InvoiceReference**
 
