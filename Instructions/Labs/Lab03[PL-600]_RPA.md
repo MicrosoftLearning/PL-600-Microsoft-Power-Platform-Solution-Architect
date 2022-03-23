@@ -239,7 +239,7 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
     a. Variable name: **Amount**
 
-    b. Data Type: **Text**
+    b. Data Type: **String**
 
     c. DefaultValue: **999**
 
