@@ -676,15 +676,17 @@ For the purposes of this lab we are only going to deploy to one production envir
 
     b. Select **Pipelines** -\> **Releases**
 
-    c. Click **New pipeline**
+    c. Select **+ New** in the menu bar.
 
-    d. Select **Empty Job**
+    d. Select the option for **+ New release pipeline**
 
-    e. Enter **Test** for **Stage Name**
+    e. Select **Empty Job**
 
-    f. Click **Save**
+    f. Enter **Test** for **Stage Name**
 
-    g. Click **Ok**
+    g. Click **Save**
+
+    h. Click **Ok**
 
 2.  Add an artifact
 
