@@ -67,27 +67,19 @@ In this exercise you will install the legacy invoicing application and Power Aut
 
 ![Power Automate Desktop step 2](../media/pad-setup-step-2.png)
 
-**Note:** If prompted, click Yes
+**Note:** If prompted, click **Yes**
 
-12. Once the installation completes, on the following screen, click on the link for **Google Chrome**
+12. Once the installation completes, on the following screen, click on the link for **Microsoft Edge**
 
 ![Power Automate Desktop step 3](../media/pad-setup-step-3.png)
 
-13. The Chrome web store will open as shown on the following screen
-
-![Power Automate Desktop step 4 - Chrome web store](../media/pad-setup-step-4.png)
-
-14. Click **Add to chrome** and **Add extension**
-
-15. On the Power Automate Desktop setup screen, click on the link for **Microsoft Edge**
-
-16. The Edge Add-ons page will open as shown on the following screen
+13. The Edge Add-ons page will open as shown on the following screen
 
 ![Power Automate Desktop step 5 - Edge Add-ons](../media/pad-setup-step-5.png)
 
-17. Click **Get** and **Add extension**
+14. Click **Get** and **Add extension**
 
-18. On the Power Automate Desktop setup screen, click **Close**
+15. On the Power Automate Desktop setup screen, click **Close**
 
 ### **Task 3: On-premises data gateway**
 
