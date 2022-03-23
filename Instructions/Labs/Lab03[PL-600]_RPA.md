@@ -53,41 +53,41 @@ In this exercise you will install the legacy invoicing application and Power Aut
 
 ![Download installers.](../media/download-installers.png)
 
-8. Click **Power Automate Desktop**
-9. Click **Install** again
-10. Click **On-premises data gateway**
-11. Once the download completes, click on the file to open and run the installer:
+8. Select **Power Automate Desktop**
+
+9. Once the download completes, select the file to open it, and and run the installer:
 
 ![Setup.Microsoft.PowerAutomateDesktop.exe](../media/pad-setup.png)
 
-12. On the following screen, click **Next**
+10. On the following screen, click **Next**
 
 ![Power Automate Desktop step 1](../media/pad-setup-step-1.png)
 
-13. On the following screen, check the final box and click **Install**
+11. On the following screen, check the final box and click **Install**
 
 ![Power Automate Desktop step 2](../media/pad-setup-step-2.png)
 
 **Note:** If prompted, click Yes
 
-14. Once the installation completes, on the following screen, click on the link for **Google Chrome**
+12. Once the installation completes, on the following screen, click on the link for **Google Chrome**
 
 ![Power Automate Desktop step 3](../media/pad-setup-step-3.png)
 
-15. The Chrome web store will open as shown on the following screen
+13. The Chrome web store will open as shown on the following screen
 
 ![Power Automate Desktop step 4 - Chrome web store](../media/pad-setup-step-4.png)
 
-16. Click **Add to chrome** and **Add extension**
+14. Click **Add to chrome** and **Add extension**
 
-17. On the Power Automate Desktop setup screen, click on the link for **Microsoft Edge**
+15. On the Power Automate Desktop setup screen, click on the link for **Microsoft Edge**
 
-18. The Edge Add-ons page will open as shown on the following screen
+16. The Edge Add-ons page will open as shown on the following screen
 
 ![Power Automate Desktop step 5 - Edge Add-ons](../media/pad-setup-step-5.png)
 
-19. Click **Get** and **Add extension**
-20. On the Power Automate Desktop setup screen, click **Close**
+17. Click **Get** and **Add extension**
+
+18. On the Power Automate Desktop setup screen, click **Close**
 
 ### **Task 3: On-premises data gateway**
 
