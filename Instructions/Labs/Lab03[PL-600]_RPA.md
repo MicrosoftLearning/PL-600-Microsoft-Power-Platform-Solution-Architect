@@ -147,7 +147,7 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 ![Select Run action](../media/pad-record-step-1.png)
 
-9. Drag the **Run** action to the canvas in the middle pane
+9. Drag the **Run application** action to the canvas in the middle pane
 
 ![Add Run action](../media/pad-record-step-2.png)
 
