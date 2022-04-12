@@ -203,15 +203,17 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 2. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **AccountName**
+    a. Variable type **Input**
+    
+    b. Variable name: **AccountName**
 
-    b. Data Type: **String**
+    c. Data Type: **String**
 
-    c. DefaultValue: **TestAccount**
+    d. DefaultValue: **TestAccount**
 
-    d. External name: **AccountName**
+    e. External name: **AccountName**
 
-    e. Description: **Name of account**
+    f. Description: **Name of account**
 
 ![Account input variable](../media/pad-edit-step-2.png)
 
@@ -219,15 +221,17 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 4. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **ContactName**
+    a. Variable type **Input** 
+    
+    b. Variable name: **ContactName**
 
-    b. Data Type: **String**
+    c. Data Type: **String**
 
-    c. DefaultValue: **Your name**
+    d. DefaultValue: **Your name**
 
-    d. External name: **ContactName**
+    e. External name: **ContactName**
 
-    e. Description: **Name of contact**
+    f. Description: **Name of contact**
 
 ![Contact input variable](../media/pad-edit-step-3.png)
 
@@ -235,15 +239,17 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 6. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **Amount**
+    a. Variable type **Input**
+    
+    b. Variable name: **Amount**
 
-    b. Data Type: **String**
+    c. Data Type: **String**
 
-    c. DefaultValue: **999**
+    d. DefaultValue: **999**
 
-    d. External name: **Amount**
+    e. External name: **Amount**
 
-    e. Description: **Invoice amount**
+    f. Description: **Invoice amount**
 
 ![Amount input variable](../media/pad-edit-step-4.png)
 
@@ -251,9 +257,11 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 8. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **InvoiceReference**
+    a. Variable type **Output** 
+    
+    b. Variable name: **InvoiceReference**
 
-    b. Data Type: **Text**
+    c. Data Type: **Text**
 
     d. External name: **InvoiceReference**
 
