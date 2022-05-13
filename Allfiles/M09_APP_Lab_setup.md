@@ -15,20 +15,22 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
 
     b. Click **Import**
 
-    c. Browse to the **SecuritySystem_1_0_0_0.zip** solution file
+    c. Browse to the **SecuritySystem_1_0_0_0.zip** solution file in the folder C:\LabFiles\Allfiles
 
     d. Click **Next**
 
-    e. Click **Import**
+    e. Click **Next**
 
-    f. **Publish** the solution
+    f. Click **Import**
+
+    g. After the Security System solution has imported, open the solution and **Publish all customizations**
 
 **Test data**
 ---------------
 
 1. From Maker portal center: <https://make.powerapps.com>
 
-2. Select the production environment and click **Data**
+2. Select the production environment, expand **Dataverse** and select **Tables**
 
 3. Country data
 
