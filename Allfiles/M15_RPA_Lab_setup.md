@@ -47,12 +47,15 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
                 There should be 25 users listed. If not click **+ Add people**, search and add the users (see the list below)  
             4. Click **Security roles**  
             5. Select **Salesperson** role  
+                There should be 25 users listed. If not click **+ Add people**, search and add the users (see the list below)  
+            6. Select **Salesperson** role  
+            7. Select **System Administrator** role  
                 There should be 25 users listed. If not click **+ Add people**, search and add the following users:  
                     a. Alan Steiner  
                     b. Alicia Thomber  
                     c. Allie Bellew  
                     d. Amy Alberts  
-                    e. Annie Weiler  
+                    e. Anne Weiler  
                     f. Carlos Grilo  
                     g. Christa Geller  
                     h. Dan Jump  
@@ -88,7 +91,7 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
         i. Select the production environment and click **Open environment**  
             1. Select **Sales Hub**  
             2. Navigate to **Products**  
-            3. Select the **Draft Products, Families, and Bundles** view  
+            3. Select the **Draft Products, Families & Bundles** view  
             4. Select the **Office 365 Service (sample)** product  
             5. Click **Publish** and **Publish hierarchy**  
             6. Click **Confirm**
@@ -101,17 +104,17 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
             3. Navigate to **Price Lists**  
             4. Select the **CRM Service USA (sample)** price list  
             5. Select the **Price List Items** tab  
-            6. Click **+ Add New Price List Item**  
+            6. Click **+ New Price List Item**  
             7. Select the **Exchange Online (sample)** product  
             8. Select the **Pricing information** tab  
             9. Enter **9** in the **Amount** field  
-            10. Click **Save and Close**  
-            11. Click **+ Add New Price List Item**  
+            10. Click **Save & Close**  
+            11. Click **+ New Price List Item**  
             12. Select the **SharePoint Online (sample)** product  
             13. Select the **Pricing information** tab  
             14. Enter **12** in the **Amount** field  
-            15. Click **Save and Close**  
-            16. Click **Save and Close**
+            15. Click **Save & Close**  
+            16. Click **Save & Close**
 
 4. Invoices  
     a. From Power Platform admin center: <https://admin.powerplatform.microsoft.com>  
@@ -128,7 +131,7 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
                 g. Select the **Exchange Online (sample)** product  
                 h. Enter **100** in the **Quantity** field  
                 i. Click **Save and Close**  
-                j. Click **Save and Close**  
+                j. Click **Save & Close**  
             4. Click **+ New** and enter the following details  
                 a. Name: **SharePoint Licenses**  
                 b. Customer: **Coho Winery (sample)**  
@@ -139,7 +142,7 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
                 g. Select the **SharePoint Online (sample)** product  
                 h. Enter **250** in the **Quantity** field  
                 i. Click **Save and Close**  
-                j. Click **Save and Close**  
+                j. Click **Save & Close**  
             5. Click **+ New** and enter the following details  
                 a. Name: **Office 365 Licenses**  
                 b. Customer: **Fourth Coffee (sample)**  
@@ -154,4 +157,4 @@ As this is a shared environment, some tasks that require a tenant Global Adminis
                 k. Select the **SharePoint Online (sample)** product  
                 l. Enter **50** in the **Quantity** field  
                 m. Click **Save and Close**  
-                n. Click **Save and Close**
+                n. Click **Save & Close**

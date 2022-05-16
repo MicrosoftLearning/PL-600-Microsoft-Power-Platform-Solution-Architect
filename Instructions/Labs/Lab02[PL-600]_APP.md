@@ -80,11 +80,11 @@ In this exercise you will determine how many solutions are required and and how 
 ### **Task 1: Plan solution segmentation**
 
 1. Review the components in the MVP solution
-2. Estimate the number and type of other components that will be required for the c
+2. Estimate the number and type of other components that will be required for the full business solution
 3. Determine if you need to segment the solution and if you should use horizontal splitting or vertical layering
 4. Map the components onto each solution
 
 ### **Task 2: Solutions**
 
-1. Create the solutions in your environment
+1. Create the solutions in the environment (adding your initials to the names of the solutions)
 2. Add the components from the MVP solution to your solutions
