@@ -30,11 +30,11 @@ In this exercise you will install the legacy invoicing application and Power Aut
 1. Open a browser and navigate to <https://aka.ms/RPAinaDayPackage>
    **Note:** A Zip file will be downloaded
 2. Extract the files from the Zip file
-3. Open the **lab data file packages** folder
+3. Open the **student lab data packages** folder
+4. Open the folder **Prerequiste 1.3 Install Contoso Invoicing app**. Run **ContosoInvoicingSetup.exe**
 
 ![Contoso Invoice application installer.](../media/install-invoicing-app.png)
 
-4. Open the folder **Prerequiste 1.3 Install Contoso Invoicing app**. Run **ContosoInvoicingSetup.exe**
 5. Complete the installation with the defaults
 
 ### **Task 2: Power Automate Desktop**
@@ -197,15 +197,17 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 2. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **AccountName**
+    a. Variable type **Input**
+    
+    b. Variable name: **AccountName**
 
-    b. Data Type: **String**
+    c. Data Type: **String**
 
-    c. DefaultValue: **TestAccount**
+    d. DefaultValue: **TestAccount**
 
-    d. External name: **AccountName**
+    e. External name: **AccountName**
 
-    e. Description: **Name of account**
+    f. Description: **Name of account**
 
 ![Account input variable](../media/pad-edit-step-2.png)
 
@@ -213,15 +215,17 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 4. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **ContactName**
+    a. Variable type **Input** 
+    
+    b. Variable name: **ContactName**
 
-    b. Data Type: **String**
+    c. Data Type: **String**
 
-    c. DefaultValue: **Your name**
+    d. DefaultValue: **Your name**
 
-    d. External name: **ContactName**
+    e. External name: **ContactName**
 
-    e. Description: **Name of contact**
+    f. Description: **Name of contact**
 
 ![Contact input variable](../media/pad-edit-step-3.png)
 
@@ -229,15 +233,17 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 6. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **Amount**
+    a. Variable type **Input**
+    
+    b. Variable name: **Amount**
+    
+    c. Data Type: **String**
 
-    b. Data Type: **String**
+    d. DefaultValue: **999**
 
-    c. DefaultValue: **999**
+    e. External name: **Amount**
 
-    d. External name: **Amount**
-
-    e. Description: **Invoice amount**
+    f. Description: **Invoice amount**
 
 ![Amount input variable](../media/pad-edit-step-4.png)
 
@@ -245,9 +251,11 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 8. In the input variable dialog, enter the following and click **Create**:
 
-    a. Variable name: **InvoiceReference**
+    a. Variable type **Output** 
+    
+    b. Variable name: **InvoiceReference**
 
-    b. Data Type: **String**
+    c. Data Type: **String**
 
     d. External name: **InvoiceReference**
 
@@ -280,7 +288,7 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 17. Hold the **Ctrl** key down and **Left-Click** on the ID field with the mouse
 18. Click **Done**
-19. Drag the **Get details of a UI element in Window** action to the end of the steps in the canvas, and select the Invoice ID UI element
+19. Drag the **Get details of the UI element in window** action to the end of the steps in the canvas, and select the Invoice ID UI element
 
 ![Get details of UI element](../media/pad-edit-step-11.png)
 
