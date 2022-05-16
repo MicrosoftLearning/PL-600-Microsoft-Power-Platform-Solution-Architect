@@ -151,7 +151,7 @@ In this exercise you will create a desktop flow to enter an Invoice into the leg
 
 ![Start Contoso Invoicing application](../media/pad-record-step-4.png)
 
-12. Click the **Desktop recorder** icon to start the task recorder
+12. Click the **Recorder** icon to start the task recorder
 
 ![Start Desktop recorder](../media/pad-record-step-5.png)
 
