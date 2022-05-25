@@ -334,7 +334,7 @@ In this exercise you will create and run a cloud flow to retrieve data from Data
 4. Provide your password and click **Sign in**
 5. Select the production environment
 6. Go to **My flows** and select the **Desktop flows** tab
-7. Verify the desktop flow you created is listed
+7. Verify the desktop flow you created is listed **Note - you may need to refresh the screen to see you flow.**
 8. Click **+ New flow** and select **Instant cloud flow**
 
 ![Add an instant flow](../media/button-create-step-1.png)
