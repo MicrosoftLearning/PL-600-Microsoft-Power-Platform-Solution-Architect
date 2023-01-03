@@ -30,7 +30,7 @@ In this exercise you will install the legacy invoicing application and Power Aut
 1. Open a browser and navigate to <https://aka.ms/RPAinaDayPackage>
    **Note:** A Zip file will be downloaded
 2. Extract the files from the Zip file
-3. Open the **student lab data packages** folder
+3. Open the **lab data packages** folder
 4. Open the folder **Prerequiste 1.3 Install Contoso Coffee Shop Invoicing Management App**. Run **ContosoInvoicingSetup.msi**
 
 ![Contoso Invoice application installer.](../media/install-invoicing-app.png)
