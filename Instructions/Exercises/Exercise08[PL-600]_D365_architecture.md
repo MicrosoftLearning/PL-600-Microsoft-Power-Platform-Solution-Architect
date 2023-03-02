@@ -1,4 +1,10 @@
-# Exercise
+---
+exercise:
+    module: 'Module 12: Explore Dynamics 365 applications architecture'
+    title: 'Exercise - First party apps'
+---
+
+# Exercise - First party apps
 
 ## Evaluate requirements for first-party apps
 
@@ -17,8 +23,7 @@ custom-built product configurator. It was built by a developer that is still on 
 
 ## Dynamics 365 Customer Service
 
-- When a customer calls in for a new support request, if they do not have available pre-purchased support tickets available, support agents need to be
-able to sell them support tickets without leaving the case record they are currently viewing.
+- When a customer calls in for a new support request, if they do not have available pre-purchased support tickets available, support agents need to be able to sell them support tickets without leaving the case record they are currently viewing.
 - When a preferred customer is out of available support incidences we need to reach out and offer to sell them more.
 - Users must not access the application on mobile devices.
 - Once a support request is opened for an on-site service, we need to dispatch to an available qualified field resource.

@@ -1,4 +1,10 @@
-# Exercise
+---
+exercise:
+    module: 'Module 13: Explore Power Virtual Agents'
+    title: 'Exercise - PVA architecture'
+---
+
+# Exercise - PVA architecture
 
 ## Evaluate requirements for chatbots
 
