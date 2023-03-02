@@ -10,13 +10,13 @@
 
 - We hope that this brings a sense of collaboration to the labs like we've never had before - when the Power Platform changes and you find it first during a live delivery, go ahead and make an enhancement right in the lab source.  Help your fellow MCTs.
 
-## How should I use these files relative to the released MOC files?
+## How should I use these files relative to the released Microsoft Learn Instructor Led Training files?
 
-- The Trainer prep guide  and PowerPoint slide decks are still going to be your primary source for teaching the course content.
+- The Trainer prep guide and PowerPoint slide decks are still going to be your primary source for teaching the course content.
 
-- These files on GitHub are designed to be used in conjunction with the course, but are in GitHub as a central repository so MCTs and course authors can have a shared source for the latest lab files.
+- These files on GitHub are designed to be used in conjunction with the course, but are in GitHub as a central repository so MCTs and course authors can have a shared source for the latest lab, demo, and exercise files.
 
-- It will be recommended that for every delivery, trainers check GitHub for any changes that may have been made to support the latest Power services, and get the latest files for their delivery.
+- It will be recommended that for every delivery, trainers check GitHub for any changes that may have been made to support the latest Power Platform services, and get the latest files for their delivery.
 
 ## What about changes to the course contents?
 
@@ -24,7 +24,7 @@
 
 ## How do I contribute?
 
-- Any MCT can submit a pull request to the code or content in the GitHub repro, Microsoft and the course author will triage and include content and lab code changes as needed.
+- Any MCT can submit a pull request to the code or content in the GitHub repro, Microsoft, and the course author will triage and include content and lab changes as needed.
 
 - You can submit bugs, changes, improvement and ideas.  Find a new feature before we have?  Submit a new demo!
 
@@ -32,4 +32,4 @@
 
 ### Classroom Materials
 
-It is strongly recommended that MCTs and Partners access these materials and in turn, provide them separately to students.  Pointing students directly to GitHub to access Lab steps as part of an ongoing class will require them to access yet another UI as part of the course, contributing to a confusing experience for the student. An explanation to the student regarding why they are receiving separate Lab instructions can highlight the nature of an always-changing cloud-based interface and platform. Microsoft Learning support for accessing files on GitHub and support for navigation of the GitHub site is limited to MCTs teaching this course only.
+It is strongly recommended that MCTs and Partners access these materials and in turn, provide them separately to students. Pointing students directly to GitHub to access Lab steps as part of an ongoing class will require them to access yet another UI as part of the course, contributing to a confusing experience for the student. An explanation to the student regarding why they are receiving separate Lab instructions can highlight the nature of an always-changing cloud-based interface and platform. Microsoft Learning support for accessing files on GitHub and support for navigation of the GitHub site is limited to MCTs teaching this course only.
