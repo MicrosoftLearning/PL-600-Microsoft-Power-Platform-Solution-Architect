@@ -21,14 +21,13 @@ A Minimal Viable Product (MVP) has been developed for Phase 1, visitor tracking,
 
 The entity relationship diagram for the MVP is as follows:
 
-:::image type="content" source="../media/mvp_erd.png" alt-text="ERD with Building table at the center with relationships to Country, Inspection, Room, and Visit. The Visit table has a relationship to the Visitor table":::
+<img type="content" source="../media/mvp_erd.png" alt-text="ERD with Building table at the center with relationships to Country, Inspection, Room, and Visit. The Visit table has a relationship to the Visitor table" />
 
 The contact table has been used for the Visitor entity. The user table has been used for security staff and employees.
 
 All components are in a single solution.
 
-> [!NOTE]
-> The MVP solution file can be found on [GitHub](https://github.com/MicrosoftLearning/PL-600-Microsoft-Power-Platform-Solution-Architect/blob/master/Allfiles/SecuritySystem_1_0_0_0.zip)
+    > **Note:** The MVP Solution file can be found on [GitHub](https://github.com/MicrosoftLearning/PL-600-Microsoft-Power-Platform-Solution-Architect/blob/master/Allfiles/SecuritySystem_1_0_0_0.zip)
 
 ## Learning Objectives
 
