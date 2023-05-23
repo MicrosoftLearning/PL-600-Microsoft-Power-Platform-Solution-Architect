@@ -1,4 +1,4 @@
-# PL-600: Power Platform Solution Architect
+# PL-600: Microsoft Power Platform Solution Architect
 
 - **[Download Latest Student Handbook and AllFiles Content](../../releases/latest)**
 - **Are you a MCT?** - Have a look at our [GitHub User Guide for MCTs](https://microsoftlearning.github.io/MCT-User-Guide/)
@@ -24,9 +24,9 @@
 
 ## How do I contribute?
 
-- Any MCT can submit a pull request to the code or content in the GitHub repro, Microsoft, and the course author will triage and include content and lab changes as needed.
+- Anyone can submit a pull request to the code or content in the GitHub repro, Microsoft, and the course author will triage and include content and lab changes as needed.
 
-- You can submit bugs, changes, improvement and ideas.  Find a new feature before we have?  Submit a new demo!
+- You can submit bugs, changes, improvement and ideas.  Found a new feature before we have?  Submit a new demo!
 
 ## Notes
 
