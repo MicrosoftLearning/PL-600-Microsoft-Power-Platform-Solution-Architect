@@ -16,6 +16,8 @@ Hyperlinks to each of the lab exercises and demos are listed below.
 {% for activity in exercises  %}| {{ activity.exercise.module }} | [{{ activity.exercise.title }}]({{ site.github.url }}{{ activity.url }}) |
 {% endfor %}
 
+<!---
+
 ## Labs
 
 {% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %}
@@ -32,4 +34,4 @@ Hyperlinks to each of the lab exercises and demos are listed below.
 {% for activity in demos  %}| {{ activity.demo.module }} | [{{ activity.demo.title }}]({{ site.github.url }}{{ activity.url }}) |
 {% endfor %}
 
-
+--->
