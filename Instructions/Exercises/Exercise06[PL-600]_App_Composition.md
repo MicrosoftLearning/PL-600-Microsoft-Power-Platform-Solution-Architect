@@ -21,7 +21,7 @@ A Minimal Viable Product (MVP) has been developed for Phase 1, visitor tracking,
 
 The entity relationship diagram for the MVP is as follows:
 
-<img type="content" source="../media/mvp_erd.png" alt-text="ERD with Building table at the center with relationships to Country, Inspection, Room, and Visit. The Visit table has a relationship to the Visitor table" />
+![mvp_erd](/Instructions/media/mvp_erd.png)
 
 The contact table has been used for the Visitor entity. The user table has been used for security staff and employees.
 
