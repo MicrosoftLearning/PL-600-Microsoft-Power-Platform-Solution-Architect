@@ -27,7 +27,7 @@ You are building a solution for Fabrikam to track visitors to a showroom and man
 - Each visitor must sign a waiver of liability each time they visit, and you must store their signature and date time of acceptance.
 - Each primary visitor is assigned an engagement tracking device that tracks their location in the manufacturing area and showroom. This is for safety as well as for improving the tours. The device stores the data in its own cloud service that offers both bulk export and API access.
 - You must allow for the tracking data to be viewed in the sales process user interface used by the sales staff
-- Marketing has asked to be able to view visitors by day/month/quarter along with statistics on closing of sales after a visit.
+- Marketing has asked to be able to view visits by day/month/quarter along with statistics on closing of sales after a visit.
 
 ### Tasks
 
