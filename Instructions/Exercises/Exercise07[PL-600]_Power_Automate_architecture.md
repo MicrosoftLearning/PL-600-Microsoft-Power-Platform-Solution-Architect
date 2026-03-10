@@ -1,7 +1,14 @@
 ---
-exercise:
-    module: 'Module 9: Explore Power Automate architecture'
-    title: 'Exercise - Power Automate architecture'
+lab:
+  title: Exercise - Power Automate architecture
+  description: You will be working in small groups. Discuss each scenario and address
+    the question. Each group takes a turn leading the larger group discussion on the
+    proposed approaches.
+  duration: 20 minutes
+  level: 100
+  islab: true
+  primarytopics:
+  - Power Automate
 ---
 
 # Exercise - Power Automate architecture
