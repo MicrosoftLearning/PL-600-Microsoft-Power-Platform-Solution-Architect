@@ -1,7 +1,11 @@
 ---
-exercise:
-    module: 'Module 5: Model data for Power Platform solutions'
-    title: 'Exercise - Model data'
+lab:
+  title: Exercise - Model data
+  description: In this exercise you will work as small groups. Review the information
+    presented about Fabrikam Robotics and complete the tasks.
+  duration: 16 minutes
+  level: 200
+  islab: true
 ---
 
 # Exercise - Model data
