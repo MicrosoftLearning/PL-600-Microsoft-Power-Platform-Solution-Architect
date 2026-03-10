@@ -1,7 +1,13 @@
 ---
-exercise:
-    module: 'Module 7: Explore Power Apps architecture'
-    title: 'Exercise - Power Apps architecture'
+lab:
+  title: Exercise - Power Apps architecture
+  description: In this exercise you will work in small groups. Review the information
+    presented about Fabrikam Robotics and complete the tasks.
+  duration: 40 minutes
+  level: 200
+  islab: true
+  primarytopics:
+  - Power Apps
 ---
 
 # Exercise - Power Apps architecture
