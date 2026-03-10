@@ -1,7 +1,12 @@
 ---
-exercise:
-    module: 'Module 11: Implement integrations with Power Platform'
-    title: 'Exercise - Evaluate integration options'
+lab:
+  title: Exercise - Evaluate integration options
+  description: You will be working in small groups. Discuss each scenario and address
+    the question. Each group takes a turn leading the larger group discussion on the
+    proposed approaches.
+  duration: 28 minutes
+  level: 200
+  islab: true
 ---
 
 # Exercise - Evaluate integration options
