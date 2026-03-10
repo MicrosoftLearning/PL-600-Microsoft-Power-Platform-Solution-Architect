@@ -1,7 +1,11 @@
 ---
-exercise:
-    module: 'Module 8: Plan application lifecycle management for Power Platform'
-    title: 'Exercise - App composition and solution segmentation'
+lab:
+  title: Exercise - App composition and solution segmentation
+  description: In this exercise you will work in small groups. Review the information
+    presented about Contoso  Robotics and complete the tasks.
+  duration: 38 minutes
+  level: 200
+  islab: true
 ---
 
 # Exercise - App composition and solution segmentation
