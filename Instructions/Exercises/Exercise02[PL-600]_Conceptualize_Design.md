@@ -1,7 +1,13 @@
 ---
-exercise:
-    module: 'Module 2: Conceptualizing the design from requirements'
-    title: 'Exercise - Design from requirements'
+lab:
+  title: Exercise - Design from requirements
+  description: During this exercise, you will be reviewing project details for Contoso.
+    This includes a set of requirements gathered from customer workshop sessions.
+    You will use this information to design a high-level architecture and complete
+    a fit gap analysis.
+  duration: 28 minutes
+  level: 100
+  islab: true
 ---
 
 # Exercise - Design from requirements
