@@ -1,7 +1,11 @@
 ---
-exercise:
-    module: 'Module 10: Model security for Power Platform solutions'
-    title: 'Exercise - Security model'
+lab:
+  title: Exercise - Security model
+  description: In this exercise you will work in small groups. Review the information
+    presented about Fabrikam Robotics and complete the tasks.
+  duration: 30 minutes
+  level: 300
+  islab: true
 ---
 
 # Exercise - Security model
