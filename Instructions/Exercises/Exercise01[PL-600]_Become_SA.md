@@ -1,7 +1,12 @@
 ---
-exercise:
-    module: 'Module 1: Becoming a Solution Architect'
-    title: 'Exercise - Getting to know your customer'
+lab:
+  title: Exercise - Getting to know your customer
+  description: Split into groups of 3-5 students. Select a company to research. Choose
+    a large, publicly traded, company. The groups will then share their findings and
+    discuss the process of researching.
+  duration: 22 minutes
+  level: 100
+  islab: true
 ---
 
 # Exercise - Getting to know your customer
