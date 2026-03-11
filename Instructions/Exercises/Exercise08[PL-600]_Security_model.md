@@ -1,7 +1,11 @@
 ---
 exercise:
-    module: 'Module 10: Model security for Power Platform solutions'
-    title: 'Exercise - Security model'
+  module: 'Module 10: Model security for Power Platform solutions'
+  title: Exercise - Security model
+  description: 'After completing the exercise, you will:'
+  duration: 30 minutes
+  level: 300
+  islab: true
 ---
 
 # Exercise - Security model
