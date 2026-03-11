@@ -1,7 +1,13 @@
 ---
 exercise:
-    module: 'Module 7: Explore Power Apps architecture'
-    title: 'Exercise - Power Apps architecture'
+  module: 'Module 7: Explore Power Apps architecture'
+  title: Exercise - Power Apps architecture
+  description: 'After completing the exercise, you will:'
+  duration: 40 minutes
+  level: 200
+  islab: true
+  primarytopics:
+    - Power Apps
 ---
 
 # Exercise - Power Apps architecture
