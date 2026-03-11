@@ -1,7 +1,11 @@
 ---
 exercise:
-    module: 'Module 1: Becoming a Solution Architect'
-    title: 'Exercise - Getting to know your customer'
+  module: 'Module 1: Becoming a Solution Architect'
+  title: Exercise - Getting to know your customer
+  description: 'After completing the exercise, you will be able to:'
+  duration: 22 minutes
+  level: 100
+  islab: true
 ---
 
 # Exercise - Getting to know your customer
