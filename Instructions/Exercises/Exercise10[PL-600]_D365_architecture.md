@@ -1,7 +1,11 @@
 ---
 exercise:
-    module: 'Module 12: Explore Dynamics 365 applications architecture'
-    title: 'Exercise - First party apps'
+  module: 'Module 12: Explore Dynamics 365 applications architecture'
+  title: Exercise - First party apps
+  description: Review the requirements for each app. Decide how best to address a requirement. Some items might be out of the box functionality, some might have nothing to do with our first-party applications, some might need third-party apps, and more.
+  duration: 18 minutes
+  level: 200
+  islab: true
 ---
 
 # Exercise - First party apps
