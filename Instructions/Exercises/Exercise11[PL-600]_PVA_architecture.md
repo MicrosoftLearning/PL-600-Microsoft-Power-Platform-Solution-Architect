@@ -4,7 +4,7 @@ exercise:
   title: Exercise - PVA architecture
   description: Review the requirements for each scenario. Decide how best to address the requirement with chatbots.
   duration: 16 minutes
-  level: 100
+  level: 200
   islab: true
 ---
 
