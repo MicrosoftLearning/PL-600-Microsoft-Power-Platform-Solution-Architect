@@ -1,7 +1,11 @@
 ---
 exercise:
-    module: 'Module 8: Plan application lifecycle management for Power Platform'
-    title: 'Exercise - App composition and solution segmentation'
+  module: 'Module 8: Plan application lifecycle management for Power Platform'
+  title: Exercise - App composition and solution segmentation
+  description: In this exercise you will define which apps are required and which app type should be used.
+  duration: 38 minutes
+  level: 200
+  islab: true
 ---
 
 # Exercise - App composition and solution segmentation

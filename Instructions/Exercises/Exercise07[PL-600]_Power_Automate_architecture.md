@@ -1,7 +1,13 @@
 ---
 exercise:
-    module: 'Module 9: Explore Power Automate architecture'
-    title: 'Exercise - Power Automate architecture'
+  module: 'Module 9: Explore Power Automate architecture'
+  title: Exercise - Power Automate architecture
+  description: During this exercise, you will be reviewing some scenarios and determining how to architect them using Power Automate.
+  duration: 20 minutes
+  level: 200
+  islab: true
+  primarytopics:
+    - Power Automate
 ---
 
 # Exercise - Power Automate architecture

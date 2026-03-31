@@ -1,7 +1,11 @@
 ---
 exercise:
-    module: 'Module 11: Implement integrations with Power Platform'
-    title: 'Exercise - Evaluate integration options'
+  module: 'Module 11: Implement integrations with Power Platform'
+  title: Exercise - Evaluate integration options
+  description: During this exercise, you will be reviewing some scenarios and determining how to architect them inbound and outbound integration methods.
+  duration: 28 minutes
+  level: 200
+  islab: true
 ---
 
 # Exercise - Evaluate integration options

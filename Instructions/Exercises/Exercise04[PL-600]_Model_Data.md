@@ -1,7 +1,11 @@
 ---
 exercise:
-    module: 'Module 5: Model data for Power Platform solutions'
-    title: 'Exercise - Model data'
+  module: 'Module 5: Model data for Power Platform solutions'
+  title: Exercise - Model data
+  description: 'After completing the exercise, you will:'
+  duration: 16 minutes
+  level: 200
+  islab: true
 ---
 
 # Exercise - Model data
