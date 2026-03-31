@@ -4,7 +4,7 @@ exercise:
   title: Exercise - Review workbook
   description: During this exercise, you will be reviewing the project workbook for the Contoso project created by another team of Solution Architects. Part of this exercise is deciding how best to manage your time. Make sure you find out from your instructor the time allotted.
   duration: 16 minutes
-  level: 100
+  level: 200
   islab: true
 ---
 
